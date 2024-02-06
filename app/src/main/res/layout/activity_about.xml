@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgPrimary">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="188dp"
+            android:fontFamily="@font/gorditas"
+            android:text="@string/icon"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="80sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView2"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/alfaslabone"
+            android:text="@string/tell_us_more"
+            android:textColor="@color/white"
+            android:textSize="30sp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView3"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="@font/futura"
+            android:text="@string/your_information"
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/first_name"
+            android:fontFamily="@font/futura"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/firstNameEt"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/grey_textbox"
+            android:fontFamily="@font/futura"
+            android:hint="John"
+            android:inputType="textNoSuggestions"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/last_name"
+            android:fontFamily="@font/futura"
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/lastNameEt"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/grey_textbox"
+            android:fontFamily="@font/futura"
+            android:hint="Doe"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/date_of_birth"
+            android:fontFamily="@font/futura"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="25dp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/dateOfBirthEt"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/grey_textbox"
+            android:fontFamily="@font/futura"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="DD / MM / YYYY"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="25dp"
+            android:text="@string/height"
+            android:fontFamily="@font/futura"
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/heightEt"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/grey_textbox"
+            android:fontFamily="@font/futura"
+            android:hint="@string/height_hint"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/weight"
+            android:fontFamily="@font/futura"
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/weightEt"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/grey_textbox"
+            android:fontFamily="@font/futura"
+            android:hint="@string/weight_hint"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/continueBtn"
+            android:layout_width="290dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/orange_button"
+            android:fontFamily="@font/lexend"
+            android:text="Continue"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.core.widget.NestedScrollView>

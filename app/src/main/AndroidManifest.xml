@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -23,6 +23,15 @@
         </activity>
         <activity android:name=".LoginActivity" android:exported="true"/>
         <activity android:name=".RegisterActivity" android:exported="true"/>
+        <activity android:name=".HomeActivity" android:exported="true"/>
+        <activity android:name=".AboutActivity" android:exported="true"/>
+        <activity android:name=".ProfileActivity" android:exported="true"/>
+        <activity android:name=".PasswordActivity" android:exported="true"/>
+        <activity android:name=".GoalsActivity" android:exported="true"/>
+        <activity android:name=".OverviewActivity" android:exported="true"/>
+        <activity android:name=".VerificationActivity" android:exported="true"/>
+        <activity android:name=".ExploreActivity" android:exported="true"/>
+        <activity android:name=".ExerciseActivity" android:exported="true"/>
     </application>
 
 </manifest>

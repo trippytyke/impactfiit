@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MyDatePickerStyle" parent="ThemeOverlay.AppCompat.Dialog">
+        <item name="colorAccent">@color/bgPrimary</item>
+        <!--selected Item color-->
+        <item name="colorControlActivated">@color/colorName</item>
+        <!-- arrow bordercolor(<>)-->
+        <item name="android:selectableItemBackgroundBorderless">@color/bgSecondary</item>
+        <!-- Highlight item color-->
+        <!--Calender Background color -->
+        <item name="android:windowBackground">@color/bgSecondary</item>
+        <!-- Ok Cancel Color-->
+        <item name="android:textColor">@color/navy</item>
+        <!-- Week TextColor-->
+        <item name="android:textColorSecondary">@color/colorName</item>
+        <!-- Calender Number color arrow color (< >) -->
+        <item name="android:textColorPrimary">@color/navy</item>
+        <!--day , month-->
+        <item name="android:textColorPrimaryInverse">#FFFFFF</item>
+        <!-- year-->
+        <item name="android:textColorSecondaryInverse">#FFFFFF</item>
+
+    </style>
+
+</resources>

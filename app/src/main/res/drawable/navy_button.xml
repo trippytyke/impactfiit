@@ -19,7 +19,7 @@
     <item>
         <shape>
             <solid
-                android:color="#D9D9D9" />
+                android:color="@color/navy" />
             <corners
                 android:radius="15dp" />
             <padding

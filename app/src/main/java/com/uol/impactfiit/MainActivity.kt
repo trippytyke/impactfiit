@@ -1,8 +1,7 @@
-package com.example.impactfiit
+package com.uol.impactfiit
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.content.Intent
 import androidx.appcompat.widget.AppCompatButton
 

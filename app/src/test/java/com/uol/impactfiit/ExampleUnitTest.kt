@@ -1,4 +1,4 @@
-package com.example.impactfiit
+package com.uol.impactfiit
 
 import org.junit.Test
 

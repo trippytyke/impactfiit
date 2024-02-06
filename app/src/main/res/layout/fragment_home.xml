@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgSecondary">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/alfaslabone"
+            android:text="@string/hello"
+            android:textColor="#2D2E4A"
+            android:textSize="34sp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/alfaslabone"
+            android:textColor="@color/colorName"
+            android:textSize="34sp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/futura"
+            android:text="Are you ready to start your workout\nfor today?"
+            android:textColor="#2D2E4A"
+            android:textSize="22sp"
+            android:textFontWeight="600"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/blue_button"
+            android:text="@string/start_workout"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textAllCaps="false" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.core.widget.NestedScrollView>

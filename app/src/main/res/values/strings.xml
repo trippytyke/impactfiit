@@ -3,4 +3,45 @@
     <string name="register_text">Register</string>
     <string name="login_text">Log in</string>
     <string name="action_settings">Settings</string>
+    <string name="tell_us_more">Tell us more about <font color="#FF7344">you</font></string>
+    <string name="your_goals">What are your <font color="#FF7344">goals</font>?</string>
+    <string name="your_information">Your information will be used to generate a personalised workout plan and diet.</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="email">Email</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="fitness_journey">Your wellness journey begins here.\n Let\'s get started.</string>
+    <string name="overview">Overview</string>
+    <string name="review">Review your personal data and your goals.</string>
+    <string name="name">Name</string>
+    <string name="continue_text">Continue</string>
+    <string name="edit_info">Edit info</string>
+    <string name="select_end_results">Select your desired end results(s)</string>
+    <string name="days_of_exercise">Days of exercise per week</string>
+    <string name="target_weight">Target weight</string>
+    <string name="weight_hint">60\t<b><font color="#000000">KG</font></b></string>
+    <string name="height_hint">150\t<b><font color="#000000">CM</font></b></string>
+    <string name="build_muscle">Build muscle mass</string>
+    <string name="weight_loss">Weight loss</string>
+    <string name="increase_stamina">Increase stamina</string>
+    <string name="your_progress">Your progress</string>
+    <string name="calorie_log">Calorie Log</string>
+    <string name="settings">Settings</string>
+    <string name="hello">Hello,</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Log out</string>
+    <string name="start_workout">Let\'s Workout</string>
+    <string name="icon">I</string>
+    <string name="verify">Verify</string>
+    <string name="account">Account</string>
+    <string name="contact">Contact Support</string>
+    <string name="password">Password</string>
+    <string name="email_or_number">"Email or mobile number"</string>
+    <string name="end_goal">End goal</string>
+    <string name="exercise_goal">Exercise goal</string>
+    <string name="your_bmi">Your BMI</string>
+    <string name="bmi">BMI</string>
+    <string name="save">Save changes</string>
 </resources>

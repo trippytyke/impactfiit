@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "475906058374",
+    "project_id": "impactfiit",
+    "storage_bucket": "impactfiit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475906058374:android:cfc1f3215c4d7c38f10907",
+        "android_client_info": {
+          "package_name": "com.uol.impactfiit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDR4RxyZ5b5eCgVUNgmMpnZjePiG16waJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

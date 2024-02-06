@@ -1,0 +1,20 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center_horizontal">
+
+    <com.github.stephenvinouze.materialnumberpickercore.MaterialNumberPicker
+        android:id="@+id/dialog_number_picker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:mnpEditable="false"
+        app:background="@color/bgPrimary"
+        app:mnpSeparatorColor="@color/colorName"
+        app:mnpTextColor="@color/colorPrimary"
+        app:mnpTextSize="16sp"
+        app:mnpTextStyle="bold"
+        app:mnpWrapped="false" />
+</LinearLayout>
