@@ -32,6 +32,7 @@
         <activity android:name=".VerificationActivity" android:exported="true"/>
         <activity android:name=".ExploreActivity" android:exported="true"/>
         <activity android:name=".ExerciseActivity" android:exported="true"/>
+        <activity android:name=".LogActivity" android:exported="true"/>
     </application>
 
 </manifest>
