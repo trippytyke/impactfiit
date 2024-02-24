@@ -34,8 +34,8 @@ class OverviewActivity : AppCompatActivity() {
         val fitGoals = intent.getStringExtra("daysExercise")
         val goals = intent.getStringExtra("goals")
         val targetWeight = intent.getStringExtra("targetWeight")
-        var weightHistory: MutableList<Float> = mutableListOf()
-        var dateHistory: MutableList<String> = mutableListOf()
+        val weightHistory: MutableList<Float> = mutableListOf()
+        val dateHistory: MutableList<String> = mutableListOf()
 
         // Get the views
         val continueButton = findViewById<AppCompatButton>(R.id.continueBtn)

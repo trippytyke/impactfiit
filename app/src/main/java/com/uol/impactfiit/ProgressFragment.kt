@@ -151,6 +151,7 @@ class ProgressFragment:Fragment(R.layout.fragment_progress) {
                         targetWeightLine.textColor = Color.WHITE
                         lineChart.axisLeft.addLimitLine(targetWeightLine)
                         lineChart.legend.isEnabled = false
+                        // ******************************************************************
 
                     } else {
                         // Handle case where fields are null due to bad import or empty data
