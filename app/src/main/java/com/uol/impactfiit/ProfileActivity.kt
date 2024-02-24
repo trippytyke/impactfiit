@@ -23,6 +23,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.LocalDate
 import java.time.Period
+import java.time.format.DateTimeFormatter
 
 class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +40,8 @@ class ProfileActivity : AppCompatActivity() {
         val nameTv = findViewById<AppCompatTextView>(R.id.nameTv)
         val ageTv = findViewById<AppCompatTextView>(R.id.ageTv)
         val bmiTv = findViewById<AppCompatTextView>(R.id.bmiTv)
+        var weightHistory: MutableList<Float> = mutableListOf()
+        var dateHistory: MutableList<String> = mutableListOf()
 
         val currentUser = Firebase.auth.currentUser
         val uid = currentUser?.uid
@@ -102,6 +105,8 @@ class ProfileActivity : AppCompatActivity() {
                     height = document.getString("height")!!
                     weight = document.getString("weight")!!
                     targetWeight = document.getString("targetWeight")!!
+                    weightHistory = document.get("weightHistory") as MutableList<Float>
+                    dateHistory = document.get("weightHistoryTime") as MutableList<String>
 
                     val items1: List<String> = dob!!.split("/")
                     val day = items1[0]
@@ -203,14 +208,60 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         saveButton.setOnClickListener {
-            docRef
-                .update(
-                    "height", height,
-                    "weight", weight,
-                    "targetWeight", targetWeight
-                )
-                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
-                .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+
+            // get last date entry from weightHistoryTime
+            val lastDateEntry = dateHistory.last() as? String
+
+            // get current date object
+            val currentDate = LocalDate.now()
+
+            if (LocalDate.parse(lastDateEntry) == currentDate) {
+                // if currentDate is the same as the last date entry, update weight
+                // and ignore the dateHistory list
+                weightHistory[weightHistory.size - 1] =  weight.toFloat()
+                docRef
+                    .update(
+                        "weight", weight,
+                        "weightHistory", weightHistory,
+                        "targetWeight", targetWeight
+                    )
+                    .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
+                    .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+
+            } else {
+                // if current date IS NOT the same as the last date entry,
+                // update new weight,
+                // add new weight to the end of weightHistory,
+                // and add currentDate to the end of dateHistory
+
+                weightHistory.add(weight.toFloat())
+
+                // convert currentDate object to a String of formal yyyy-mm-dd
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                val formattedDate = currentDate.format(formatter)
+                dateHistory.add((formattedDate))
+
+                docRef
+                    .update(
+                        "weight", weight,
+                        "weightHistory", weightHistory,
+                        "weightHistoryTime", dateHistory,
+                        "targetWeight", targetWeight
+                    )
+                    .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
+                    .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+            }
+
+
+            // OLD CODE LEFT JUST IN CASE NEW CODE BREAKS
+//            docRef
+//                .update(
+//                    "height", height,
+//                    "weight", weight,
+//                    "targetWeight", targetWeight
+//                )
+//                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
+//                .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
         }
     }
 }
