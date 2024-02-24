@@ -14,6 +14,8 @@ import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class OverviewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +34,8 @@ class OverviewActivity : AppCompatActivity() {
         val fitGoals = intent.getStringExtra("daysExercise")
         val goals = intent.getStringExtra("goals")
         val targetWeight = intent.getStringExtra("targetWeight")
+        var weightHistory: MutableList<Float> = mutableListOf()
+        var dateHistory: MutableList<String> = mutableListOf()
 
         // Get the views
         val continueButton = findViewById<AppCompatButton>(R.id.continueBtn)
@@ -109,6 +113,22 @@ class OverviewActivity : AppCompatActivity() {
             endGoalsTxt.setText(goals)
         }
 
+        fun setWeightHistory() { //Function to set the weightHistory List
+            if (weight != null) {
+                weightHistory.add(weight.toFloat())
+            }
+        }
+
+        fun setDateHistory() { //Function to set the dateHistoryList
+            // get current date
+            val currentDate = LocalDate.now()
+
+            // convert currentDate object to a String of formal yyyy-mm-dd
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val formattedDate = currentDate.format(formatter)
+            dateHistory.add(formattedDate)
+        }
+
         // Call the functions
         setName()
         setDOB()
@@ -118,6 +138,8 @@ class OverviewActivity : AppCompatActivity() {
         setFitGoals()
         setBMI()
         setEndGoals()
+        setWeightHistory()
+        setDateHistory()
 
 
         continueButton.setOnClickListener {//When the continue button is clicked, the user is taken to the HomeActivity
@@ -131,7 +153,9 @@ class OverviewActivity : AppCompatActivity() {
                 "weight" to weight,
                 "targetWeight" to targetWeight,
                 "fitGoals" to fitGoals,
-                "goals" to goals
+                "goals" to goals,
+                "weightHistory" to weightHistory,
+                "weightHistoryTime" to dateHistory
             )
             db.collection("users").document(uid!!)
                 .set(user)
