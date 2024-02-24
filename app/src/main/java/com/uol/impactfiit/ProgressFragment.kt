@@ -16,6 +16,8 @@ import com.github.mikephil.charting.data.Entry
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import androidx.core.content.ContextCompat
+import com.github.mikephil.charting.components.LegendEntry
+import com.github.mikephil.charting.components.LimitLine
 
 
 class ProgressFragment:Fragment(R.layout.fragment_progress) {
@@ -47,6 +49,9 @@ class ProgressFragment:Fragment(R.layout.fragment_progress) {
                     //code below gets the fields weightHistory & dateHistory. This field is an array
                     val weightHistory = documentSnapshot.get("weightHistory") as List<Float>
                     val dateHistory = documentSnapshot.get("weightHistoryTime") as List<String>
+
+                    //get weight goal
+                    val targetWeight = documentSnapshot.get("targetWeight") as String
 
                     if (weightHistory != null && dateHistory != null) {
 
@@ -94,10 +99,10 @@ class ProgressFragment:Fragment(R.layout.fragment_progress) {
                         println("Today's date is" + LocalDate.now())
 
                         // Create a LineDataSet object to hold the data set
-                        val dataSet = LineDataSet(entriesCollection, "")
+                        val dataSet = LineDataSet(entriesCollection, "Weight")
                         dataSet.color = Color.WHITE
 
-                        val orangeColour = context?.let { ContextCompat.getColor(it, R.color.colorName) }
+                        val orangeColour = context?.let { ContextCompat.getColor(it, R.color.colorName) } as Int
                         if (orangeColour != null) {
                             dataSet.setCircleColor(orangeColour)
                         }
@@ -139,11 +144,21 @@ class ProgressFragment:Fragment(R.layout.fragment_progress) {
                         lineChart.axisRight.isEnabled = false
                         // ******************************************************************
 
+                        // ============= ADD LINE TO DISPLAY TARGET LINE ===============
+                        val targetWeightLine = LimitLine(targetWeight.toFloat(), "Target weight")
+                        targetWeightLine.lineColor = orangeColour
+                        targetWeightLine.label = "Target weight"
+                        targetWeightLine.textColor = Color.WHITE
+                        lineChart.axisLeft.addLimitLine(targetWeightLine)
+                        lineChart.legend.isEnabled = false
+
                     } else {
                         // Handle case where fields are null due to bad import or empty data
+                        Log.d(ContentValues.TAG, "Unable to get weightHistory and dateHistory")
                     }
                 } else {
                     // Handle case where document doesn't exist
+                    Log.d(ContentValues.TAG, "Unable to get document")
             }
         }
             .addOnFailureListener { exception ->
