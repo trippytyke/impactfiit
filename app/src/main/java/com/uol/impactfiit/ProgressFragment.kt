@@ -27,8 +27,6 @@ class ProgressFragment:Fragment(R.layout.fragment_progress) {
         super.onViewCreated(view, savedInstanceState)
 
         // ============== OPEN SCOPE ============
-        lateinit var weights: List<Float>
-        lateinit var dates: List<Float>
         var spacing = 0.0f
         lineChart = view.findViewById(R.id.chart)
         // **************************************************
