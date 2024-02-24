@@ -239,7 +239,7 @@ class ProfileActivity : AppCompatActivity() {
                 // convert currentDate object to a String of formal yyyy-mm-dd
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
                 val formattedDate = currentDate.format(formatter)
-                dateHistory.add((formattedDate))
+                dateHistory.add(formattedDate)
 
                 docRef
                     .update(
