@@ -159,6 +159,6 @@ class ProgressFragment:Fragment(R.layout.fragment_progress) {
                 // Handle any errors that occurred during the operation
                 Log.d(ContentValues.TAG, "get failed with ", exception)
         }
-        // **************************************************
+        // ***************************************************
     }
 }
