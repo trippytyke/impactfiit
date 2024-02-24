@@ -160,47 +160,5 @@ class ProgressFragment:Fragment(R.layout.fragment_progress) {
                 Log.d(ContentValues.TAG, "get failed with ", exception)
         }
         // **************************************************
-
-
-        // ============== LINE CHART ================
-
-        // Create a list of Entry objects representing data points
-        val entries = mutableListOf<Entry>()
-        entries.add(Entry(0f, 10f))  // Example data point at x = 0, y = 10
-        entries.add(Entry(1f, 20f))  // Example data point at x = 1, y = 20
-        entries.add(Entry(2f, 15f))  // Example data point at x = 2, y = 15
-        // Add more data points as needed
-
-        // Provide x-axis labels for each data point
-//        val labels = listOf("Label 1", "Label 2", "Label 3") // Replace with your actual labels
-//        lineChart.xAxis.valueFormatter = object : ValueFormatter() {
-//            override fun getFormattedValue(value: Float): String {
-//                val index = value.toInt()
-//                return if (index >= 0 && index < labels.size) labels[index] else ""
-//            }
-//        }
-
-//        // Create a LineDataSet object to hold the data set
-//        val dataSet = LineDataSet(entriesCollection, "Test Data")
-//
-//        // Create a LineData object and add the LineDataSet to it
-//        val lineData = LineData(dataSet)
-//
-//        // Set the LineData object to your LineChart
-//        lineChart.data = lineData
-//
-//        // Refresh the chart to display the new data
-//        lineChart.invalidate()
-        // **************************************************
-
-
-
-//        val logoutButton = view.findViewById<AppCompatButton>(R.id.logoutBtn)
-//
-//        logoutButton.setOnClickListener {
-//            val intent = Intent(activity, LoginActivity::class.java)
-//            Firebase.auth.signOut()
-//            startActivity(intent)
-//        }
     }
 }
