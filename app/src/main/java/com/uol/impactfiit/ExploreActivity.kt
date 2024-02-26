@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.*
 import com.android.volley.toolbox.*
 import org.json.JSONArray
-import org.json.JSONObject
 import java.util.Locale
 
 data class Exercise(val name: String, val id: String, val gifUrl: String, val targetMuscle: String, val bodyPart: String, val equipment: String, val instructions: String)

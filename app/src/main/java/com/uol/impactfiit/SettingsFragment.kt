@@ -25,6 +25,7 @@ class SettingsFragment:Fragment(R.layout.fragment_settings) {
             val intent = Intent(activity, LoginActivity::class.java)
             Firebase.auth.signOut()
             startActivity(intent)
+
         }
 
     }
