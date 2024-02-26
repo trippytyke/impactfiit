@@ -57,5 +57,6 @@ dependencies {
     implementation("com.android.volley:volley:1.2.1")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.22")
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }
