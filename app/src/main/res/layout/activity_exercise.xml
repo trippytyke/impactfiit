@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgSecondary">
@@ -10,6 +11,26 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="Exercises"
+                app:titleCentered="true"
+                android:background="@color/bgPrimary"
+                app:navigationIcon="@drawable/arrow_back"
+                app:navigationIconTint="@color/colorName"
+                app:liftOnScroll="true"
+                app:titleTextAppearance="@style/MyTitleStyle"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/exerciseTv"
             android:layout_width="wrap_content"
@@ -18,7 +39,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
             android:fontFamily="@font/alfaslabone"
-            android:text="@string/settings"
+            android:text="Exercise name"
             android:textColor="#2D2E4A"
             android:textSize="34sp"/>
 
@@ -29,6 +50,26 @@
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="50dp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/exerciseDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/futura"
+            android:text="Description"
+            android:textColor="#2D2E4A"
+            android:textSize="20sp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/futura"/>
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

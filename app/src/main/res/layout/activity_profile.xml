@@ -11,20 +11,31 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:fontFamily="@font/alfaslabone"
-            android:text="@string/profile"
-            android:textColor="#2D2E4A"
-            android:textSize="34sp"/>
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="Profile"
+                app:titleCentered="true"
+                android:background="@color/bgPrimary"
+                app:navigationIcon="@drawable/arrow_back"
+                app:navigationIconTint="@color/colorName"
+                app:liftOnScroll="true"
+                app:titleTextAppearance="@style/MyTitleStyle"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="30dp"
             android:text="@string/name"
             android:fontFamily="@font/futura"
             android:textColor="@color/navy"

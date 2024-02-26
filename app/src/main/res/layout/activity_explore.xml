@@ -7,9 +7,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bgSecondary">
 
-    <TableRow
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="Exercises"
+            app:titleCentered="true"
+            android:background="@color/bgPrimary"
+            app:navigationIcon="@drawable/arrow_back"
+            app:navigationIconTint="@color/colorName"
+            app:liftOnScroll="true"
+            app:titleTextAppearance="@style/MyTitleStyle"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/filterBtn"

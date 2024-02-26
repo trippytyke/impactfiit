@@ -33,6 +33,7 @@
         <activity android:name=".ExploreActivity" android:exported="true"/>
         <activity android:name=".ExerciseActivity" android:exported="true"/>
         <activity android:name=".LogActivity" android:exported="true"/>
+        <activity android:name=".RecipeActivity" android:exported="true"/>
     </application>
 
 </manifest>
