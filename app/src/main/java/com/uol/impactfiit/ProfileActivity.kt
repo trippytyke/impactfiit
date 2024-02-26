@@ -43,9 +43,10 @@ class ProfileActivity : AppCompatActivity() {
         var weightHistory: MutableList<Float> = mutableListOf()
         var dateHistory: MutableList<String> = mutableListOf()
 
-        val currentUser = Firebase.auth.currentUser
-        val uid = currentUser?.uid
-        val db = Firebase.firestore
+        val currentUser = Firebase.auth.currentUser //Get current logged in user
+        val uid = currentUser?.uid //Get the user id
+        val db = Firebase.firestore //Get the firestore database
+
         val docRef = db.collection("users").document(uid!!)
 
         fun setName(fname: String, lname: String) { //Function to set the textView of the name

@@ -8,13 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.*
 import com.android.volley.toolbox.*
+import com.google.android.material.appbar.MaterialToolbar
 import org.json.JSONArray
-import org.json.JSONObject
 import java.util.Locale
 
 data class Exercise(val name: String, val id: String, val gifUrl: String, val targetMuscle: String, val bodyPart: String, val equipment: String, val instructions: String)
@@ -62,11 +63,13 @@ class ExploreActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_explore)
         val searchView = findViewById<androidx.appcompat.widget.SearchView>(R.id.searchView)
+        val topAppBar = findViewById<MaterialToolbar>(R.id.topAppBar)
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         val exerciseList = ArrayList<Exercise>()
         val adapter = ExerciseAdapter(exerciseList)
         recyclerView.adapter = adapter
+
 
         searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -127,7 +130,14 @@ class ExploreActivity : AppCompatActivity() {
             }
         }
         requestQueue.add(stringRequest)
+
+        topAppBar.setNavigationOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            intent.putExtra("fragShow", "workout")
+            startActivity(intent)
+        }
     }
+
 
 
 }
