@@ -44,5 +44,6 @@
     <string name="your_bmi">Your BMI</string>
     <string name="bmi">BMI</string>
     <string name="save">Save changes</string>
+    <string name="recipe_image">Recipe image</string>
     <string name="weightLabel">Weight (KG)</string>
 </resources>
