@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -21,26 +23,55 @@ import org.json.JSONObject
 data class Recipe(val id: Int, val name: String, val calorie: Int, val image: String)
 
 class LogActivity : AppCompatActivity() {
+    private val eatenFoods = mutableListOf<Recipe>()
+    private val recipeList = mutableListOf<Recipe>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log)
 
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerViewRecipes)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        val recipesRecyclerView: RecyclerView = findViewById(R.id.recyclerViewRecipes)
+        recipesRecyclerView.layoutManager = LinearLayoutManager(this)
 
+        val eatenFoodsRecyclerView: RecyclerView = findViewById(R.id.recyclerViewEatenFoods)
+        eatenFoodsRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        val editTextQuery: EditText = findViewById(R.id.editTextQuery)
+        val buttonSearch: Button = findViewById(R.id.buttonSearch)
         val recipeCall = RecipeCall(this)
-        recipeCall.fetchRecipes(recyclerView)
 
-        recyclerView.adapter = RecipeAdapter(recipeCall.recipeList)
+        buttonSearch.setOnClickListener {
+            val query = editTextQuery.text.toString()
+            if (query.isNotEmpty()) {
+                recipeCall.fetchRecipes(query) { recipes ->
+                    recipeList.clear()
+                    recipeList.addAll(recipes)
+                    recipesRecyclerView.adapter?.notifyDataSetChanged()
+                }
+            } else {
+                Toast.makeText(this, "Please enter a query", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        recipesRecyclerView.adapter = RecipeAdapter(recipeList) { recipe ->
+            eatenFoods.add(recipe)
+            eatenFoodsRecyclerView.adapter?.notifyDataSetChanged()
+            Toast.makeText(this, "${recipe.name} added to eaten foods", Toast.LENGTH_SHORT).show()
+        }
+
+        eatenFoodsRecyclerView.adapter = RecipeAdapter(eatenFoods) {}
     }
 }
-class RecipeAdapter(private val recipeList: List<Recipe>) :
+
+class RecipeAdapter(private val recipeList: List<Recipe>,
+                    private val onRecipeClicked: (Recipe) -> Unit) :
     RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.imageViewRecipe)
         val nameTextView: TextView = view.findViewById(R.id.textViewRecipeName)
         val caloriesTextView: TextView = view.findViewById(R.id.textViewCalories)
+        val addButton: Button = view.findViewById(R.id.buttonEaten)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
@@ -54,15 +85,17 @@ class RecipeAdapter(private val recipeList: List<Recipe>) :
         holder.nameTextView.text = recipe.name
         holder.caloriesTextView.text = "Calories: ${recipe.calorie}"
         Glide.with(holder.imageView.context).load(recipe.image).into(holder.imageView)
+        holder.addButton.setOnClickListener{ onRecipeClicked(recipe)}
     }
 
     override fun getItemCount() = recipeList.size
 }
 class RecipeCall(val context: Context) {
-    private val url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=pasta&maxCalories=10000"
+
     val recipeList = ArrayList<Recipe>()
 
-    fun fetchRecipes(recyclerView : RecyclerView) {
+    fun fetchRecipes(query : String, onRecipesFetched: (List<Recipe>) -> Unit) {
+        val url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=$query&maxCalories=10000"
         val stringRequest = object : StringRequest(
             Method.GET, url,
             Response.Listener { response ->
@@ -73,20 +106,16 @@ class RecipeCall(val context: Context) {
                     val id = result.getInt("id")
                     val title = result.getString("title")
                     val image = result.getString("image")
-                    // for getting the calories
-                    // Use optJSONObject to avoid JSONException if "nutrition" key is missing
                     val nutrition = result.optJSONObject("nutrition")
                     val calories = if (nutrition != null) {
                         val nutrients = nutrition.getJSONArray("nutrients")
                         nutrients.getJSONObject(0).getInt("amount")
                     } else {
-                        // Set a default value or handle the missing nutrition information
                         0
                     }
-                    Log.d("RecipeCall", "Name: $title, Cal: $calories")
                     recipeList.add(Recipe(id, title, calories, image))
                 }
-                recyclerView.adapter = RecipeAdapter(recipeList)
+                onRecipesFetched(recipeList)
             },
             Response.ErrorListener { error ->
                 Log.e("RecipeCall", "Failed to fetch recipes: $error")
