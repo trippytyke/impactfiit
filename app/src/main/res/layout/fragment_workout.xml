@@ -10,15 +10,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:fontFamily="@font/alfaslabone"
-            android:text="Exercises"
-            android:textColor="#2D2E4A"
-            android:textSize="34sp"/>
-
         <androidx.cardview.widget.CardView
             android:layout_width="300dp"
             android:layout_height="200dp"
@@ -50,8 +41,12 @@
                 android:fontFamily="@font/lexend"
                 android:textFontWeight="650"
                 android:textColor="@color/white"
-                android:textSize="25sp"
-                android:clickable="false"/>
+                android:textSize="30sp"
+                android:clickable="false"
+                android:shadowColor="#000000"
+                android:shadowDx="4"
+                android:shadowDy="5"
+                android:shadowRadius="6"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -85,8 +80,12 @@
                 android:fontFamily="@font/lexend"
                 android:textFontWeight="650"
                 android:textColor="@color/white"
-                android:textSize="25sp"
-                android:clickable="false"/>
+                android:textSize="30sp"
+                android:clickable="false"
+                android:shadowColor="#000000"
+                android:shadowDx="4"
+                android:shadowDy="5"
+                android:shadowRadius="6" />
 
         </androidx.cardview.widget.CardView>
 

@@ -22,4 +22,10 @@
 
     </style>
 
+    <style name="MyTitleStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/colorName</item>
+        <item name="android:fontFamily">@font/alfaslabone</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
 </resources>

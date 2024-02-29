@@ -1,5 +1,6 @@
 package com.uol.impactfiit
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -14,6 +15,7 @@ import com.android.volley.toolbox.BasicNetwork
 import com.android.volley.toolbox.DiskBasedCache
 import com.android.volley.toolbox.HurlStack
 import com.android.volley.toolbox.StringRequest
+import com.google.android.material.appbar.MaterialToolbar
 import org.json.JSONArray
 
 
@@ -23,6 +25,7 @@ class ExerciseActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise)
 
+        val topAppBar = findViewById<MaterialToolbar>(R.id.topAppBar)
         val gifUrl = intent.getStringExtra("exerciseGifUrl")
         val exerciseId = intent.getStringExtra("exerciseId")
         val exerciseInstructions = intent.getStringExtra("exerciseInstructions")
@@ -40,5 +43,9 @@ class ExerciseActivity : AppCompatActivity(){
         webView.setWebViewClient(WebViewClient())
 
         webView.loadUrl(gifUrl!!)
+
+        topAppBar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 }

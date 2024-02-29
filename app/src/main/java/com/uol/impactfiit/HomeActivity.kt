@@ -39,6 +39,10 @@ class HomeActivity : AppCompatActivity() {
                 setCurrentFragment(homeFragment)
                 bottomNavigationView.setSelectedItemId(R.id.home)
             }
+            "workout" -> {
+                setCurrentFragment(workoutFragment)
+                bottomNavigationView.setSelectedItemId(R.id.workout)
+            }
             null -> {
                 setCurrentFragment(homeFragment)
                 bottomNavigationView.setSelectedItemId(R.id.home)

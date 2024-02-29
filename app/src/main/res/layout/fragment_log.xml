@@ -15,19 +15,95 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_gravity="center"
             android:fontFamily="@font/alfaslabone"
-            android:text="@string/calorie_log"
+            android:text="Nutrition"
             android:textColor="@color/navy"
             android:textSize="34sp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnNavigate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Go to Activity"
-            android:layout_gravity="center_horizontal"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            app:cardCornerRadius="20dp">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btnExplore"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:background="@drawable/workout_button"
+                android:gravity="start|center_vertical"
+                android:maxWidth="100dp"
+                android:maxHeight="100dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/food"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_gravity="start|center_vertical"
+                android:text="Explore recipes"
+                android:fontFamily="@font/lexend"
+                android:textFontWeight="650"
+                android:textColor="@color/white"
+                android:shadowColor="#000000"
+                android:shadowDx="4"
+                android:shadowDy="5"
+                android:shadowRadius="6"
+                android:textSize="30sp"
+                android:clickable="false"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            app:cardCornerRadius="20dp">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btnLog"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:background="@drawable/workout_button"
+                android:gravity="start|center_vertical"
+                android:maxWidth="100dp"
+                android:maxHeight="100dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/foodtwo"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_gravity="start|center_vertical"
+                android:shadowColor="#000000"
+                android:shadowDx="4"
+                android:shadowDy="5"
+                android:shadowRadius="6"
+                android:text="Calorie log"
+                android:fontFamily="@font/lexend"
+                android:textFontWeight="650"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:clickable="false"/>
+
+        </androidx.cardview.widget.CardView>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
