@@ -79,6 +79,7 @@
             android:fontFamily="@font/futura"
             android:hint="250"/>
     </TableRow>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/addBtn"
         android:layout_width="200dp"

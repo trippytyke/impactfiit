@@ -24,7 +24,7 @@
         <TableLayout
             android:layout_height="match_parent"
             android:layout_width="200dp"
-         >
+            >
 
             <TextView
                 android:id="@+id/textView"
@@ -36,7 +36,7 @@
                 android:textSize="20sp"/>
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textViewTwo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -48,11 +48,10 @@
         </TableLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnView"
+            android:id="@+id/btnAdd"
             android:layout_width="80dp"
             android:layout_height="40dp"
-            android:text="View"
-
+            android:text="Add"
             android:background="@drawable/blue_button"
             android:textColor="#FFFFFF"
             android:textSize="15sp"

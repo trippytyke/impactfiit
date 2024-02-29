@@ -13,11 +13,16 @@ class WorkoutFragment: Fragment(R.layout.fragment_workout) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val startButton = view.findViewById<AppCompatImageButton>(R.id.startWorkout)
+        val routineButton = view.findViewById<AppCompatImageButton>(R.id.routineBtn)
         val exploreButton = view.findViewById<AppCompatImageButton>(R.id.exploreBtn)
 
         exploreButton.setOnClickListener {
             val intent = Intent(activity, ExploreActivity::class.java)
+            startActivity(intent)
+        }
+
+        routineButton.setOnClickListener {
+            val intent = Intent(activity, RoutineActivity::class.java)
             startActivity(intent)
         }
     }

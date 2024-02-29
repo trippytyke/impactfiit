@@ -24,6 +24,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/userName"
+            android:text="John Doe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -32,28 +33,71 @@
             android:textSize="34sp"/>
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dateTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:layout_marginStart="30dp"
+            android:layout_marginBottom="35dp"
             android:fontFamily="@font/futura"
-            android:text="Are you ready to start your workout\nfor today?"
+            android:text="Thursday\n25th March 2021"
             android:textColor="#2D2E4A"
             android:textSize="22sp"
             android:textFontWeight="600"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="160dp"
+        <TableRow
+            android:layout_width="350dp"
             android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="30dp"
-            android:background="@drawable/blue_button"
-            android:text="@string/start_workout"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            android:textAllCaps="false" />
+            android:layout_gravity="center">
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/filterBtn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:background="@drawable/icon_filter"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:textColor="#FFFFFF" />
+        </TableRow>
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="20dp">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/profileBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:gravity="center"
+                android:maxWidth="125dp"
+                android:maxHeight="125dp"
+                android:background="@drawable/profile"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_gravity="start|center_vertical"
+                android:text="Profile"
+                android:fontFamily="@font/lexend"
+                android:textFontWeight="650"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:clickable="false"
+                android:shadowColor="#000000"
+                android:shadowDx="4"
+                android:shadowDy="5"
+                android:shadowRadius="6" />
+
+        </androidx.cardview.widget.CardView>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.core.widget.NestedScrollView>

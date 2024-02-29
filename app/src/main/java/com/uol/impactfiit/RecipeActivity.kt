@@ -36,8 +36,6 @@ class RecipeActivity : AppCompatActivity() {
         val recipesRecyclerView: RecyclerView = findViewById(R.id.recyclerViewRecipes)
         recipesRecyclerView.layoutManager = LinearLayoutManager(this)
 
-
-
         val editTextQuery: EditText = findViewById(R.id.editTextQuery)
         val buttonSearch: Button = findViewById(R.id.buttonSearch)
         val recipeCall = RecipeCall(this)

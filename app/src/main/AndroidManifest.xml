@@ -34,6 +34,8 @@
         <activity android:name=".ExerciseActivity" android:exported="true"/>
         <activity android:name=".LogActivity" android:exported="true"/>
         <activity android:name=".RecipeActivity" android:exported="true"/>
+        <activity android:name=".RoutineActivity" android:exported="true"/>
+        <activity android:name=".ViewRoutineActivity" android:exported="true"/>
     </application>
 
 </manifest>
