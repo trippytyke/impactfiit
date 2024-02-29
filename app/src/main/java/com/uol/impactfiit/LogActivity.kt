@@ -18,13 +18,24 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
+import com.google.firebase.firestore.firestore
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 data class Recipe(val id: Int, val name: String, val calorie: Int, val image: String)
-
+data class DailyCalories(val date: String, val totalCalories: Int)
 class LogActivity : AppCompatActivity() {
     private val eatenFoods = mutableListOf<Recipe>()
     private val recipeList = mutableListOf<Recipe>()
+    private val dailyCaloriesList = mutableListOf<DailyCalories>()
+
+    val currentUser = Firebase.auth.currentUser
+    val uid = currentUser?.uid
+    val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,11 +66,39 @@ class LogActivity : AppCompatActivity() {
 
         recipesRecyclerView.adapter = RecipeAdapter(recipeList) { recipe ->
             eatenFoods.add(recipe)
+            addCalories(recipe.calorie)
             eatenFoodsRecyclerView.adapter?.notifyDataSetChanged()
             Toast.makeText(this, "${recipe.name} added to eaten foods", Toast.LENGTH_SHORT).show()
         }
 
+
         eatenFoodsRecyclerView.adapter = RecipeAdapter(eatenFoods) {}
+    }
+
+    private fun getCurrentDate(): String {
+        val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+        return dateFormat.format(Date())
+    }
+
+    private fun updateTotalCalories() {
+        val today = getCurrentDate()
+        val todayCalories = dailyCaloriesList.find { it.date == today }?.totalCalories ?: 0
+        val dailyCaloriesEntry = DailyCalories(today, todayCalories)
+        uid?.let {
+            db.collection("calorieLog").document(it).collection("dailyIntake").document(today).set(dailyCaloriesEntry)
+        }
+    }
+
+    private fun addCalories(calories: Int) {
+        val today = getCurrentDate()
+        val existingEntry = dailyCaloriesList.find { it.date == today }
+        if (existingEntry != null) {
+            dailyCaloriesList[dailyCaloriesList.indexOf(existingEntry)] =
+                existingEntry.copy(totalCalories = existingEntry.totalCalories + calories)
+        } else {
+            dailyCaloriesList.add(DailyCalories(today, calories))
+        }
+        updateTotalCalories()
     }
 }
 
