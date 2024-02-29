@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp"
-    android:background="@drawable/recipe_row"
-    >
+    android:background="@color/bgSecondary">
 
     <ImageView
         android:id="@+id/imageViewRecipe"
@@ -15,7 +14,8 @@
         android:contentDescription="@string/recipe_image"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:background="@drawable/image_border"/>
 
     <TextView
         android:id="@+id/textViewRecipeName"

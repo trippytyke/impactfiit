@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toolbar
@@ -17,16 +19,18 @@ import com.android.volley.toolbox.*
 import com.google.android.material.appbar.MaterialToolbar
 import org.json.JSONArray
 import java.util.Locale
+import com.bumptech.glide.Glide
 
 data class Exercise(val name: String, val id: String, val gifUrl: String, val targetMuscle: String, val bodyPart: String, val equipment: String, val instructions: String)
 
 class ExerciseAdapter(private var exerciseList: List<Exercise>) : RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>() {
     class ExerciseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView.findViewById(R.id.textView)
+        val textViewTwo: TextView = itemView.findViewById(R.id.textView2)
+        val imageView: ImageView = itemView.findViewById(R.id.exerciseGif)
     }
 
     fun filter(filterList: List<Exercise>) {
-
         exerciseList = filterList
 
         notifyDataSetChanged()
@@ -39,6 +43,9 @@ class ExerciseAdapter(private var exerciseList: List<Exercise>) : RecyclerView.A
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
         val exercise = exerciseList[position]
         holder.textView.text = exercise.name
+        holder.textViewTwo.text = exercise.targetMuscle
+        Glide.with(holder.imageView).load(exercise.gifUrl).into(holder.imageView);
+
 
         // Set the OnClickListener
         holder.itemView.setOnClickListener {
@@ -88,6 +95,8 @@ class ExploreActivity : AppCompatActivity() {
                     }
                 }
                 if (filteredList.isEmpty()) {
+                    adapter.filter(filteredList)
+                    adapter.notifyDataSetChanged()
                     Toast.makeText(this@ExploreActivity, "No Exercise Found", Toast.LENGTH_SHORT).show()
                 } else {
                     adapter.filter(filteredList)

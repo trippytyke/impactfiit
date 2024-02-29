@@ -15,7 +15,8 @@
             android:layout_height="200dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            app:cardCornerRadius="20dp">
+            app:cardCornerRadius="20dp"
+            app:cardElevation="30dp">
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/exploreBtn"
@@ -55,10 +56,11 @@
             android:layout_height="200dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            app:cardCornerRadius="20dp">
+            app:cardCornerRadius="20dp"
+            app:cardElevation="30dp">
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/startWorkout"
+                android:id="@+id/routineBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
