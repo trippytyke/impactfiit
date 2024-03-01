@@ -22,10 +22,22 @@
 
     </style>
 
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/bgPrimary</item>
+        <item name="android:textColor">@color/white</item>
+
+    </style>
+
     <style name="MyTitleStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@color/colorName</item>
         <item name="android:fontFamily">@font/alfaslabone</item>
         <item name="android:textSize">25sp</item>
     </style>
 
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <item name="android:ambientShadowAlpha">1</item>
+    <item name="android:spotShadowAlpha">1</item>
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="android:statusBarColor">@android:color/background_light</item>
+    </style>
 </resources>
