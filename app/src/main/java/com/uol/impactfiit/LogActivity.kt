@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
@@ -27,6 +28,7 @@ class LogActivity : AppCompatActivity() {
     val uid = currentUser?.uid
     val db = Firebase.firestore
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log)
@@ -38,6 +40,11 @@ class LogActivity : AppCompatActivity() {
         val calories: EditText = findViewById(R.id.caloriesEt)
         val addButton: Button = findViewById((R.id.addBtn))
         val addImage: ImageView = findViewById(R.id.selectedImage)
+        val topAppBar = findViewById<MaterialToolbar>(R.id.topAppBar)
+
+        topAppBar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
 
         val galleryImage = registerForActivityResult(ActivityResultContracts.GetContent(),
             ActivityResultCallback {
