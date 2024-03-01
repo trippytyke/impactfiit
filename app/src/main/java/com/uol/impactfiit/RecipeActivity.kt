@@ -20,13 +20,24 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
+import com.google.firebase.firestore.firestore
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
-data class Recipe(val id: Int, val name: String, val calorie: Int, val image: String)
-
+data class Recipe(val name: String = "", val calorie: Int = 0, val image: String = "")
+data class DailyCalories(val date: String, val totalCalories: Int)
 class RecipeActivity : AppCompatActivity() {
     private val eatenFoods = mutableListOf<Recipe>()
     private val recipeList = mutableListOf<Recipe>()
+    private val dailyCaloriesList = mutableListOf<DailyCalories>()
+
+    val currentUser = Firebase.auth.currentUser
+    val uid = currentUser?.uid
+    val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +57,7 @@ class RecipeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
         buttonSearch.setOnClickListener {
             val query = editTextQuery.text.toString()
             if (query.isNotEmpty()) {
@@ -61,7 +73,71 @@ class RecipeActivity : AppCompatActivity() {
 
         recipesRecyclerView.adapter = RecipeAdapter(recipeList) { recipe ->
             eatenFoods.add(recipe)
+            addCalories(recipe)
             Toast.makeText(this, "${recipe.name} added to eaten foods", Toast.LENGTH_SHORT).show()
+        }
+
+        fetchEatenFoods()
+    }
+
+    private fun getCurrentDate(): String {
+        val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+        return dateFormat.format(Date())
+    }
+    private fun updateTotalCalories() {
+        val today = getCurrentDate()
+        val todayCalories = dailyCaloriesList.find { it.date == today }?.totalCalories ?: 0
+        val dailyCaloriesEntry = DailyCalories(today, todayCalories)
+        uid?.let {
+            db.collection("calorieLog").document(it).collection("dailyIntake").document(today).set(dailyCaloriesEntry)
+        }
+    }
+    private fun addCalories(recipe: Recipe) {
+        val today = getCurrentDate()
+        val existingEntry = dailyCaloriesList.find { it.date == today }
+        val newTotalCalories = (existingEntry?.totalCalories ?: 0) + recipe.calorie
+        if (existingEntry != null) {
+            dailyCaloriesList[dailyCaloriesList.indexOf(existingEntry)] =
+                existingEntry.copy(totalCalories = newTotalCalories)
+        } else {
+            dailyCaloriesList.add(DailyCalories(today, newTotalCalories))
+        }
+        updateTotalCalories()
+
+        uid?.let { userId ->
+            db.collection("calorieLog").document(userId)
+                .collection("dailyIntake").document(today)
+                .collection("recipes").add(recipe)
+                .addOnSuccessListener {
+                    Log.d("LogActivity", "Recipe added to eaten foods in Firestore")
+                }
+                .addOnFailureListener { e ->
+                    Log.e("LogActivity", "Error adding recipe to Firestore", e)
+                }
+        }
+    }
+
+    private fun fetchEatenFoods() {
+        val today = getCurrentDate()
+        uid?.let { userId ->
+            db.collection("calorieLog").document(userId).collection("dailyIntake").document(today)
+                .collection("recipes")
+                .get()
+                .addOnSuccessListener { result ->
+                    eatenFoods.clear()
+                    var totalCalories = 0
+                    for (document in result) {
+                        val recipe = document.toObject(Recipe::class.java)
+                        eatenFoods.add(recipe)
+                        totalCalories += recipe.calorie
+                    }
+                    dailyCaloriesList.clear()
+                    dailyCaloriesList.add(DailyCalories(today, totalCalories))
+                    Log.d("LogActivity", "Total Calories $totalCalories")
+                }
+                .addOnFailureListener { e ->
+                    Log.e("LogActivity", "Error fetching eaten foods", e)
+                }
         }
     }
 }
@@ -106,7 +182,6 @@ class RecipeCall(val context: Context) {
                 val results = jsonObject.getJSONArray("results")
                 for (i in 0 until results.length()) {
                     val result = results.getJSONObject(i)
-                    val id = result.getInt("id")
                     val title = result.getString("title")
                     val image = result.getString("image")
                     val nutrition = result.optJSONObject("nutrition")
@@ -116,7 +191,7 @@ class RecipeCall(val context: Context) {
                     } else {
                         0
                     }
-                    recipeList.add(Recipe(id, title, calories, image))
+                    recipeList.add(Recipe(title, calories, image))
                 }
                 onRecipesFetched(recipeList)
             },

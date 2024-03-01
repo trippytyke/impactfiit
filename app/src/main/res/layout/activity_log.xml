@@ -72,13 +72,22 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/caloriesEt"
-            android:layout_width="100dp"
+            android:layout_width="106dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:background="@drawable/grey_textbox"
             android:fontFamily="@font/futura"
-            android:hint="250"/>
+            android:hint="250" />
     </TableRow>
+
+
+    <ImageView
+        android:id="@+id/selectedImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/addimage" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/addBtn"
