@@ -1,6 +1,7 @@
 package com.uol.impactfiit
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -20,6 +21,7 @@ import java.util.Locale
 class LogActivity : AppCompatActivity() {
     private val eatenFoods = mutableListOf<Recipe>()
     private val dailyCaloriesList = mutableListOf<DailyCalories>()
+    private lateinit var eatenFoodRecyclerView: RecyclerView
 
     val currentUser = Firebase.auth.currentUser
     val uid = currentUser?.uid
@@ -29,7 +31,7 @@ class LogActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log)
 
-        val eatenFoodRecyclerView: RecyclerView = findViewById(R.id.recyclerViewEatenFoods)
+        eatenFoodRecyclerView = findViewById(R.id.recyclerViewEatenFoods)
         eatenFoodRecyclerView.layoutManager = LinearLayoutManager(this)
 
         val foodName: EditText = findViewById(R.id.foodNameEt)
@@ -48,7 +50,7 @@ class LogActivity : AppCompatActivity() {
 
         eatenFoodRecyclerView.adapter = RecipeAdapter(eatenFoods) { recipe ->
             eatenFoods.add(recipe)
-            addCalories(recipe.calorie)
+            addCalories(recipe)
             Toast.makeText(this, "${recipe.name} added to eaten foods", Toast.LENGTH_SHORT).show()
         }
 
@@ -60,16 +62,44 @@ class LogActivity : AppCompatActivity() {
                 val calorieValue = caloriesText.toIntOrNull() ?: 0
                 val newFoodItem = Recipe(foodNameText, calorieValue, addImage.toString())
                 eatenFoods.add(newFoodItem)
-                addCalories(calorieValue)
+                addCalories(newFoodItem)
                 eatenFoodRecyclerView.adapter?.notifyDataSetChanged()
                 Toast.makeText(this, "$foodNameText added to eaten foods", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Please enter food name and calories", Toast.LENGTH_SHORT).show()
             }
         }
+
+        fetchEatenFoods()
+
     }
 
-
+    private fun fetchEatenFoods() {
+        val today = getCurrentDate()
+        uid?.let { userId ->
+            db.collection("calorieLog").document(userId).collection("dailyIntake").document(today)
+                .collection("recipes")
+                .get()
+                .addOnSuccessListener { result ->
+                    eatenFoods.clear()
+                    var totalCalories = 0
+                    for (document in result) {
+                        val recipe = document.toObject(Recipe::class.java)
+                        recipe?.let {
+                            eatenFoods.add(it)
+                            totalCalories += it.calorie
+                        }
+                    }
+                    dailyCaloriesList.clear()
+                    dailyCaloriesList.add(DailyCalories(today, totalCalories))
+                    eatenFoodRecyclerView.adapter?.notifyDataSetChanged()
+                    Log.d("LogActivity", "Total Calories $totalCalories")
+                }
+                .addOnFailureListener { e ->
+                    Log.e("LogActivity", "Error fetching eaten foods", e)
+                }
+        }
+    }
 
     private fun getCurrentDate(): String {
         val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
@@ -85,15 +115,28 @@ class LogActivity : AppCompatActivity() {
         }
     }
 
-    private fun addCalories(calories: Int) {
+    private fun addCalories(recipe: Recipe) {
         val today = getCurrentDate()
         val existingEntry = dailyCaloriesList.find { it.date == today }
+        val newTotalCalories = (existingEntry?.totalCalories ?: 0) + recipe.calorie
         if (existingEntry != null) {
             dailyCaloriesList[dailyCaloriesList.indexOf(existingEntry)] =
-                existingEntry.copy(totalCalories = existingEntry.totalCalories + calories)
+                existingEntry.copy(totalCalories = newTotalCalories)
         } else {
-            dailyCaloriesList.add(DailyCalories(today, calories))
+            dailyCaloriesList.add(DailyCalories(today, newTotalCalories))
         }
         updateTotalCalories()
+
+        uid?.let { userId ->
+            db.collection("calorieLog").document(userId)
+                .collection("dailyIntake").document(today)
+                .collection("recipes").add(recipe)
+                .addOnSuccessListener {
+                    Log.d("LogActivity", "Recipe added to eaten foods in Firestore")
+                }
+                .addOnFailureListener { e ->
+                    Log.e("LogActivity", "Error adding recipe to Firestore", e)
+                }
+        }
     }
 }

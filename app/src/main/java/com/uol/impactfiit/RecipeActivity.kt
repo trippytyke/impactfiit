@@ -28,7 +28,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-data class Recipe(val name: String, val calorie: Int, val image: String)
+data class Recipe(val name: String = "", val calorie: Int = 0, val image: String = "")
 data class DailyCalories(val date: String, val totalCalories: Int)
 class RecipeActivity : AppCompatActivity() {
     private val eatenFoods = mutableListOf<Recipe>()
@@ -75,7 +75,7 @@ class RecipeActivity : AppCompatActivity() {
 
         recipesRecyclerView.adapter = RecipeAdapter(recipeList) { recipe ->
             eatenFoods.add(recipe)
-            addCalories(recipe.calorie)
+            addCalories(recipe)
             Toast.makeText(this, "${recipe.name} added to eaten foods", Toast.LENGTH_SHORT).show()
         }
 
@@ -94,16 +94,29 @@ class RecipeActivity : AppCompatActivity() {
             db.collection("calorieLog").document(it).collection("dailyIntake").document(today).set(dailyCaloriesEntry)
         }
     }
-    private fun addCalories(calories: Int) {
+    private fun addCalories(recipe: Recipe) {
         val today = getCurrentDate()
         val existingEntry = dailyCaloriesList.find { it.date == today }
+        val newTotalCalories = (existingEntry?.totalCalories ?: 0) + recipe.calorie
         if (existingEntry != null) {
             dailyCaloriesList[dailyCaloriesList.indexOf(existingEntry)] =
-                existingEntry.copy(totalCalories = existingEntry.totalCalories + calories)
+                existingEntry.copy(totalCalories = newTotalCalories)
         } else {
-            dailyCaloriesList.add(DailyCalories(today, calories))
+            dailyCaloriesList.add(DailyCalories(today, newTotalCalories))
         }
         updateTotalCalories()
+
+        uid?.let { userId ->
+            db.collection("calorieLog").document(userId)
+                .collection("dailyIntake").document(today)
+                .collection("recipes").add(recipe)
+                .addOnSuccessListener {
+                    Log.d("LogActivity", "Recipe added to eaten foods in Firestore")
+                }
+                .addOnFailureListener { e ->
+                    Log.e("LogActivity", "Error adding recipe to Firestore", e)
+                }
+        }
     }
 
     private fun fetchEatenFoods() {
