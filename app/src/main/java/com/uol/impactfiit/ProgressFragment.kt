@@ -9,6 +9,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -16,29 +17,131 @@ import com.github.mikephil.charting.data.Entry
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import androidx.core.content.ContextCompat
-import com.github.mikephil.charting.components.LegendEntry
 import com.github.mikephil.charting.components.LimitLine
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
 
 
 class ProgressFragment:Fragment(R.layout.fragment_progress) {
 
     private lateinit var lineChart: LineChart
+    private lateinit var barChart: BarChart
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // ============== OPEN SCOPE ============
-        var spacing = 0.0f
-        lineChart = view.findViewById(R.id.chart)
+        lineChart = view.findViewById(R.id.lineChart)
+        barChart = view.findViewById(R.id.barChart)
         // **************************************************
 
         // ============= FIREBASE ===========
         val uid = Firebase.auth.currentUser?.uid
         val db = Firebase.firestore
-        val docRef = db.collection("users").document(uid!!)
+        val usersDocRef = db.collection("users").document(uid!!)
+        val caloriesDocRef = db.collection("calorieLog")
+            .document(uid)
+            .collection("dailyIntake")
         // **************************************************
 
-        // =========== GET DATA FROM FIREBASE ==========
-        docRef.get()
+        // =========== GET DATA FROM FIREBASE AND DRAW CHARTS ==========
+        fetchWeightsAndDrawGraph(lineChart, usersDocRef)
+        fetchCaloriesAndDrawChart(barChart, caloriesDocRef)
+        // ***************************************************
+    }
+
+
+    private fun fetchCaloriesAndDrawChart(barChart: BarChart, doc: CollectionReference) {
+        val dates : MutableList<String> = mutableListOf()
+        val calories : MutableList<Int> = mutableListOf()
+
+        doc.get()
+            .addOnSuccessListener { query ->
+                if (query != null) {
+                    for (document in query.documents) {
+                        val date = document.id
+                        dates.add(date)
+
+                        val totalCalories = document.get("totalCalories") as Long
+                        calories.add(totalCalories.toInt())
+                    }
+
+                    if (dates.size == calories.size) {
+                        drawBarChart(barChart, dates, calories)
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                // Handle any errors that occurred during the operation
+                Log.d(ContentValues.TAG, "get failed with ", exception)
+            }
+    }
+
+
+    private fun drawBarChart(barChart: BarChart, dates: List<String>, calories: List<Int>) {
+        val entriesCollection = mutableListOf<BarEntry>()
+
+        dates.forEachIndexed { index, date ->
+            entriesCollection.add(BarEntry(index.toFloat(), calories[index].toFloat()))
+        }
+
+        val orangeColour = context?.let { ContextCompat.getColor(it, R.color.colorName) } as Int
+        val barDataSet = BarDataSet(entriesCollection, "calories")
+        barDataSet.color = orangeColour
+        barDataSet.valueTextColor = Color.WHITE
+
+        val dataSets = mutableListOf<IBarDataSet>()
+        dataSets.add(barDataSet)
+
+        val barData = BarData(dataSets)
+        barData.barWidth = 0.2f
+
+        barChart.data = barData
+        barChart.setFitBars(true)
+
+        val xAxis = barChart.xAxis
+//        xAxis.valueFormatter = IndexAxisValueFormatter(dates)
+        xAxis.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                val index = value.toInt()
+
+                if (index >= 0 && index < dates.size) {
+                    val dateParts = dates[index].split(" ")
+                    return "${dateParts[0]} \n${dateParts[1]}\n"
+                }
+                return ""
+            }
+        }
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.setDrawGridLines(false)
+        xAxis.setDrawAxisLine(true)
+        xAxis.granularity = 1f
+        xAxis.labelCount = dates.size
+        xAxis.setAvoidFirstLastClipping(true)
+        xAxis.textColor = Color.WHITE
+        xAxis.gridColor = Color.TRANSPARENT
+
+        val leftAxis = barChart.axisLeft
+        leftAxis.textColor = Color.WHITE
+        leftAxis.gridColor = Color.TRANSPARENT
+
+        barChart.description.isEnabled = false
+        barChart.legend.isEnabled = false
+        barChart.axisRight.isEnabled = false
+        barChart.axisLeft.axisMinimum = 0f
+
+        barChart.invalidate()
+    }
+
+    private fun fetchWeightsAndDrawGraph(lineChart: LineChart, doc: DocumentReference) {
+        var spacing = 0.0f
+
+        doc.get()
             .addOnSuccessListener { documentSnapshot ->
                 if (documentSnapshot != null && documentSnapshot.exists()) {
 
@@ -59,8 +162,6 @@ class ProgressFragment:Fragment(R.layout.fragment_progress) {
 
                             if (currDate == LocalDate.parse(dateHistory[i])) {
                                 // Should only execute for first entry
-                                println("HARITH iteration")
-
                                 entriesCollection.add(Entry(spacing, weightHistory[i]))
 
                             } else {
@@ -70,14 +171,6 @@ class ProgressFragment:Fragment(R.layout.fragment_progress) {
                                 // Get and compare the days between currDate and dateHistory[i]
                                 val dateInIteration = LocalDate.parse(dateHistory[i])
                                 val dateDiff = ChronoUnit.DAYS.between(currDate, dateInIteration)
-
-                                // ============= LAZY TEMP ERROR CHECKING ==============
-                                println("HARITH else DATE DIFF " + dateDiff)
-                                println("HARITH else CURRDATE " + currDate)
-                                println("HARITH else DATEINITERATION " + dateInIteration)
-                                println("HARITH else INDEX " + i)
-                                println("                                                   HARITH")
-                                // ******************************************
 
                                 // Increment spacing by the difference between both dates
                                 // For a more accurate estimation of the weight changes
@@ -89,12 +182,9 @@ class ProgressFragment:Fragment(R.layout.fragment_progress) {
                                 // Update current date to dateHistory[i] for the comparison
                                 // for the next iteration
                                 currDate = LocalDate.parse(dateHistory[i])
-                                println("Local Date 2 = " + dateInIteration)
                             }
 
                         }
-
-                        println("Today's date is" + LocalDate.now())
 
                         // Create a LineDataSet object to hold the data set
                         val dataSet = LineDataSet(entriesCollection, "Weight")
@@ -119,36 +209,11 @@ class ProgressFragment:Fragment(R.layout.fragment_progress) {
                         lineChart.invalidate()
 
                         // ========================== LineChart styles ============================
-                        lineChart.apply {
-                            xAxis.apply {
-                                setDrawGridLines(false)
-                                axisLineColor = Color.WHITE
-                                textColor = Color.WHITE
-                            }
-
-                            axisLeft.apply {
-                                setDrawGridLines(false)
-                                axisLineColor = Color.WHITE
-                                textColor = Color.WHITE
-                            }
-
-                            axisRight.apply {
-                                setDrawGridLines(false)
-                            }
-                        }
-
-                        lineChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
-                        lineChart.description.isEnabled = false
-                        lineChart.axisRight.isEnabled = false
+                        setLineChartStyle(lineChart)
                         // ******************************************************************
 
                         // ============= ADD LINE TO DISPLAY TARGET LINE ===============
-                        val targetWeightLine = LimitLine(targetWeight.toFloat(), "Target weight")
-                        targetWeightLine.lineColor = orangeColour
-                        targetWeightLine.label = "Target weight"
-                        targetWeightLine.textColor = Color.WHITE
-                        lineChart.axisLeft.addLimitLine(targetWeightLine)
-                        lineChart.legend.isEnabled = false
+                        drawTargetWeight(lineChart, orangeColour, targetWeight.toFloat())
                         // ******************************************************************
 
                     } else {
@@ -158,12 +223,43 @@ class ProgressFragment:Fragment(R.layout.fragment_progress) {
                 } else {
                     // Handle case where document doesn't exist
                     Log.d(ContentValues.TAG, "Unable to get document")
+                }
             }
-        }
             .addOnFailureListener { exception ->
                 // Handle any errors that occurred during the operation
                 Log.d(ContentValues.TAG, "get failed with ", exception)
+            }
+    }
+
+    private fun setLineChartStyle(lineChart: LineChart) {
+        lineChart.apply {
+            xAxis.apply {
+                setDrawGridLines(false)
+                axisLineColor = Color.WHITE
+                textColor = Color.WHITE
+            }
+
+            axisLeft.apply {
+                setDrawGridLines(false)
+                axisLineColor = Color.WHITE
+                textColor = Color.WHITE
+            }
+
+            axisRight.apply {
+                setDrawGridLines(false)
+            }
         }
-        // ***************************************************
+
+        lineChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        lineChart.description.isEnabled = false
+        lineChart.axisRight.isEnabled = false
+    }
+    private fun drawTargetWeight(lineChart: LineChart, colour: Int, weight: Float) {
+        val targetWeightLine = LimitLine(weight, "Target weight")
+        targetWeightLine.lineColor = colour
+        targetWeightLine.label = "Target weight"
+        targetWeightLine.textColor = Color.WHITE
+        lineChart.axisLeft.addLimitLine(targetWeightLine)
+        lineChart.legend.isEnabled = false
     }
 }
