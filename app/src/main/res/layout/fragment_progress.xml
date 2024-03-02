@@ -26,7 +26,9 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
             android:minHeight="200dp"
             app:cardCornerRadius="10dp"
             app:cardBackgroundColor="@color/navy"
@@ -55,7 +57,7 @@
 
                 <!-- LineChart -->
                 <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/chart"
+                    android:id="@+id/lineChart"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginLeft="10dp"
@@ -67,6 +69,51 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:minHeight="200dp"
+            app:cardCornerRadius="10dp"
+            app:cardBackgroundColor="@color/navy"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <!-- Header text -->
+            <TextView
+                android:id="@+id/calorieLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/calorieLabel"
+                android:textColor="@color/bgSecondary"
+                android:fontFamily="@font/futura"
+                android:textSize="18sp"
+                android:paddingTop="16dp"
+                android:paddingLeft="16dp"
+                android:paddingBottom="0dp"
+                android:layout_marginBottom="0dp"
+                />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="0dp"
+                />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
