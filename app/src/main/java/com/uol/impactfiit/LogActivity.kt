@@ -2,6 +2,9 @@ package com.uol.impactfiit
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -12,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -57,11 +61,8 @@ class LogActivity : AppCompatActivity() {
             galleryImage.launch("image/*")
         }
 
-
         eatenFoodRecyclerView.adapter = RecipeAdapter(eatenFoods) { recipe ->
-            eatenFoods.add(recipe)
-            addCalories(recipe)
-            Toast.makeText(this, "${recipe.name} added to eaten foods", Toast.LENGTH_SHORT).show()
+            removeEatenFood(recipe)
         }
 
         addButton.setOnClickListener {
@@ -83,6 +84,38 @@ class LogActivity : AppCompatActivity() {
         fetchEatenFoods()
 
     }
+
+    class RecipeAdapter(private val recipeList: MutableList<Recipe>,
+                        private val onRecipeRemoved: (Recipe) -> Unit) :
+        RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
+
+        class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            val imageView: ImageView = view.findViewById(R.id.imageViewRecipe)
+            val nameTextView: TextView = view.findViewById(R.id.textViewRecipeName)
+            val caloriesTextView: TextView = view.findViewById(R.id.textViewCalories)
+            val removeButton: Button = view.findViewById(R.id.buttonRemoveEaten)
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_log, parent, false)
+            return RecipeViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
+            val recipe = recipeList[position]
+            holder.nameTextView.text = recipe.name
+            holder.caloriesTextView.text = "Calories: ${recipe.calorie}"
+            Glide.with(holder.imageView.context).load(recipe.image).into(holder.imageView)
+            holder.removeButton.setOnClickListener {
+                onRecipeRemoved(recipe)
+                recipeList.removeAt(position)
+                notifyItemRemoved(position)
+            }
+        }
+        override fun getItemCount() = recipeList.size
+    }
+
 
     private fun fetchEatenFoods() {
         val today = getCurrentDate()
@@ -108,6 +141,34 @@ class LogActivity : AppCompatActivity() {
                 }
                 .addOnFailureListener { e ->
                     Log.e("LogActivity", "Error fetching eaten foods", e)
+                }
+        }
+    }
+    private fun removeEatenFood(recipe: Recipe) {
+        val today = getCurrentDate()
+        uid?.let { userId ->
+            // Find the document ID of the recipe to remove
+            db.collection("calorieLog").document(userId).collection("dailyIntake").document(today)
+                .collection("recipes")
+                .whereEqualTo("name", recipe.name)
+                .whereEqualTo("calorie", recipe.calorie)
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        db.collection("calorieLog").document(userId).collection("dailyIntake").document(today)
+                            .collection("recipes").document(document.id).delete()
+                            .addOnSuccessListener {
+                                Log.d("LogActivity", "Recipe removed from eaten foods in Firestore")
+                                // Refresh the list and total calories
+                                fetchEatenFoods()
+                            }
+                            .addOnFailureListener { e ->
+                                Log.e("LogActivity", "Error removing recipe from Firestore", e)
+                            }
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Log.e("LogActivity", "Error finding recipe to remove from Firestore", e)
                 }
         }
     }
