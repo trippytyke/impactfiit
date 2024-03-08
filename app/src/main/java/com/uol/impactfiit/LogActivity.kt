@@ -1,5 +1,6 @@
 package com.uol.impactfiit
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -34,7 +35,7 @@ class LogActivity : AppCompatActivity() {
     val currentUser = Firebase.auth.currentUser
     val uid = currentUser?.uid
     val db = Firebase.firestore
-
+    private var selectedImageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,8 +56,11 @@ class LogActivity : AppCompatActivity() {
         }
 
         val galleryImage = registerForActivityResult(ActivityResultContracts.GetContent(),
-            ActivityResultCallback {
-                addImage.setImageURI(it)
+            ActivityResultCallback { uri ->
+                uri?.let {
+                    selectedImageUri = it
+                    addImage.setImageURI(it)
+                }
             })
         addImage.setOnClickListener{
             galleryImage.launch("image/*")
@@ -77,7 +81,7 @@ class LogActivity : AppCompatActivity() {
                 val carbohydrateValue = carbohydrateText.toIntOrNull() ?: 0
                 val proteinValue = proteinText.toIntOrNull() ?: 0
 
-                val newFoodItem = Recipe(id = UUID.randomUUID().toString(), foodNameText, calorieValue, carbohydrateValue, proteinValue, addImage.toString())
+                val newFoodItem = Recipe(id = UUID.randomUUID().toString(), foodNameText, calorieValue, carbohydrateValue, proteinValue, selectedImageUri.toString())
                 eatenFoods.add(newFoodItem)
                 addCalories(newFoodItem)
                 eatenFoodRecyclerView.adapter?.notifyDataSetChanged()

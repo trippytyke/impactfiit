@@ -88,7 +88,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/grey_textbox"
-                android:hint="250" />
+                android:hint="250"
+                android:inputType="number"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/carbsLabel"
@@ -103,7 +104,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/grey_textbox"
-                android:hint="50" />
+                android:hint="50"
+                android:inputType="number"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/proteinLabel"
@@ -118,7 +120,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/grey_textbox"
-                android:hint="30" />
+                android:hint="30"
+                android:inputType="number"/>
         </LinearLayout>
     </LinearLayout>
 

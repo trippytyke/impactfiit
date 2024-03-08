@@ -11,7 +11,7 @@
     <string name="email">Email</string>
     <string name="height">Height</string>
     <string name="weight">Weight</string>
-    <string name="date_of_birth">Date of birth</string>
+    <string name="date_of_birth">Age</string>
     <string name="fitness_journey">Your wellness journey begins here.\n Let\'s get started.</string>
     <string name="overview">Overview</string>
     <string name="review">Review your personal data and your goals.</string>
