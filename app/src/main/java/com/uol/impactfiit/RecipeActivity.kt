@@ -63,7 +63,9 @@ class RecipeActivity : AppCompatActivity() {
             if (query.isNotEmpty()) {
                 recipeCall.fetchRecipes(query) { recipes ->
                     recipeList.clear()
+                    Log.d("RecipeActivity", "recipeList cleared: $recipeList")
                     recipeList.addAll(recipes)
+                    Log.d("RecipeActivity", "recipeList cleared: $recipeList")
                     recipesRecyclerView.adapter?.notifyDataSetChanged()
                 }
             } else {
@@ -171,15 +173,14 @@ class RecipeAdapter(private val recipeList: List<Recipe>,
 }
 class RecipeCall(val context: Context) {
 
-    val recipeList = ArrayList<Recipe>()
-
-    fun fetchRecipes(query : String, onRecipesFetched: (List<Recipe>) -> Unit) {
+    fun fetchRecipes(query: String, onRecipesFetched: (List<Recipe>) -> Unit) {
         val url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=$query&maxCalories=10000"
         val stringRequest = object : StringRequest(
             Method.GET, url,
             Response.Listener { response ->
                 val jsonObject = JSONObject(response)
                 val results = jsonObject.getJSONArray("results")
+                val localRecipeList = ArrayList<Recipe>() // Create a new list for each call
                 for (i in 0 until results.length()) {
                     val result = results.getJSONObject(i)
                     val title = result.getString("title")
@@ -191,9 +192,9 @@ class RecipeCall(val context: Context) {
                     } else {
                         0
                     }
-                    recipeList.add(Recipe(title, calories, image))
+                    localRecipeList.add(Recipe(title, calories, image))
                 }
-                onRecipesFetched(recipeList)
+                onRecipesFetched(localRecipeList) // Pass the new list to the callback
             },
             Response.ErrorListener { error ->
                 Log.e("RecipeCall", "Failed to fetch recipes: $error")
