@@ -26,81 +26,102 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TableRow
-        android:layout_width="350dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center">
+        android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:text="Food name"
-            android:fontFamily="@font/futura"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <androidx.appcompat.widget.AppCompatTextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="150dp"
-            android:text="Calories"
-            android:fontFamily="@font/futura"
-            android:textColor="@color/white"
-            android:textSize="20sp"/>
-    </TableRow>
+            android:orientation="vertical"
+            android:layout_margin="10dp">
 
-    <TableRow
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_gravity="center">
+            <ImageView
+                android:id="@+id/selectedImage"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/addimage" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/foodNameEt"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:layout_marginEnd="40dp"
-            android:background="@drawable/grey_textbox"
-            android:fontFamily="@font/futura"
-            android:hint="Pasta"
-            android:inputType="textNoSuggestions" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/addBtn"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/orange_button"
+                android:text="Add"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/caloriesEt"
-            android:layout_width="106dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:background="@drawable/grey_textbox"
-            android:fontFamily="@font/futura"
-            android:hint="250" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="10dp">
 
-    </TableRow>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/foodNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Food Name:"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
 
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/foodNameEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_textbox"
+                android:hint="Pasta" />
 
-    <ImageView
-        android:id="@+id/selectedImage"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="10dp"
-        android:scaleType="centerCrop"
-        android:background="@drawable/addimage" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/caloriesLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calories:"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/addBtn"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/orange_button"
-        android:fontFamily="@font/lexend"
-        android:text="Add"
-        android:textColor="#FFFFFF" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/caloriesEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_textbox"
+                android:hint="250" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/carbsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Carbs:"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/carbsEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_textbox"
+                android:hint="50" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/proteinLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Protein:"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/proteinEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_textbox"
+                android:hint="30" />
+        </LinearLayout>
+    </LinearLayout>
+
     <TableRow
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -122,8 +143,11 @@
         android:id="@+id/recyclerViewEatenFoods"
         android:background="@color/bgSecondary"
         android:layout_gravity="center"
-        android:layout_width="380dp"
-        android:layout_height="450dp" />
-
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -23,6 +23,7 @@ import com.google.firebase.firestore.firestore
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.UUID
 
 class LogActivity : AppCompatActivity() {
     private val eatenFoods = mutableListOf<Recipe>()
@@ -68,10 +69,15 @@ class LogActivity : AppCompatActivity() {
         addButton.setOnClickListener {
             val foodNameText = foodName.text.toString().trim()
             val caloriesText = calories.text.toString().trim()
+            val carbohydrateText = calories.text.toString().trim()
+            val proteinText = calories.text.toString().trim()
 
             if (foodNameText.isNotEmpty() && caloriesText.isNotEmpty()) {
                 val calorieValue = caloriesText.toIntOrNull() ?: 0
-                val newFoodItem = Recipe(foodNameText, calorieValue, addImage.toString())
+                val carbohydrateValue = carbohydrateText.toIntOrNull() ?: 0
+                val proteinValue = proteinText.toIntOrNull() ?: 0
+
+                val newFoodItem = Recipe(id = UUID.randomUUID().toString(), foodNameText, calorieValue, carbohydrateValue, proteinValue, addImage.toString())
                 eatenFoods.add(newFoodItem)
                 addCalories(newFoodItem)
                 eatenFoodRecyclerView.adapter?.notifyDataSetChanged()
@@ -93,6 +99,8 @@ class LogActivity : AppCompatActivity() {
             val imageView: ImageView = view.findViewById(R.id.imageViewRecipe)
             val nameTextView: TextView = view.findViewById(R.id.textViewRecipeName)
             val caloriesTextView: TextView = view.findViewById(R.id.textViewCalories)
+            val carbohydratesTextView: TextView = view.findViewById(R.id.textViewCarbohydrate)
+            val proteinTextView: TextView = view.findViewById(R.id.textViewProtein)
             val removeButton: Button = view.findViewById(R.id.buttonRemoveEaten)
         }
 
@@ -106,6 +114,8 @@ class LogActivity : AppCompatActivity() {
             val recipe = recipeList[position]
             holder.nameTextView.text = recipe.name
             holder.caloriesTextView.text = "Calories: ${recipe.calorie}"
+            holder.carbohydratesTextView.text = "Carbohydrates: ${recipe.carbohydrates}"
+            holder.proteinTextView.text = "Protein: ${recipe.protein}"
             Glide.with(holder.imageView.context).load(recipe.image).into(holder.imageView)
             holder.removeButton.setOnClickListener {
                 onRecipeRemoved(recipe)
@@ -127,7 +137,7 @@ class LogActivity : AppCompatActivity() {
                     eatenFoods.clear()
                     var totalCalories = 0
                     for (document in result) {
-                        val recipe = document.toObject(Recipe::class.java)
+                        val recipe = document.toObject(Recipe::class.java).copy(id = document.id)
                         recipe?.let {
                             eatenFoods.add(it)
                             totalCalories += it.calorie
@@ -147,29 +157,18 @@ class LogActivity : AppCompatActivity() {
     private fun removeEatenFood(recipe: Recipe) {
         val today = getCurrentDate()
         uid?.let { userId ->
-            // Find the document ID of the recipe to remove
-            db.collection("calorieLog").document(userId).collection("dailyIntake").document(today)
-                .collection("recipes")
-                .whereEqualTo("name", recipe.name)
-                .whereEqualTo("calorie", recipe.calorie)
-                .get()
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        db.collection("calorieLog").document(userId).collection("dailyIntake").document(today)
-                            .collection("recipes").document(document.id).delete()
-                            .addOnSuccessListener {
-                                Log.d("LogActivity", "Recipe removed from eaten foods in Firestore")
-                                // Refresh the list and total calories
-                                fetchEatenFoods()
-                            }
-                            .addOnFailureListener { e ->
-                                Log.e("LogActivity", "Error removing recipe from Firestore", e)
-                            }
+            recipe.id?.let { documentId ->
+                db.collection("calorieLog").document(userId).collection("dailyIntake").document(today)
+                    .collection("recipes").document(documentId).delete()
+                    .addOnSuccessListener {
+                        Log.d("LogActivity", "Recipe removed from eaten foods in Firestore")
+                        // Refresh the list and total calories
+                        fetchEatenFoods()
                     }
-                }
-                .addOnFailureListener { e ->
-                    Log.e("LogActivity", "Error finding recipe to remove from Firestore", e)
-                }
+                    .addOnFailureListener { e ->
+                        Log.e("LogActivity", "Error removing recipe from Firestore", e)
+                    }
+            }
         }
     }
 
