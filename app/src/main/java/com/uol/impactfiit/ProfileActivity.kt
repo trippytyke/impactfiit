@@ -1,12 +1,10 @@
 package com.uol.impactfiit
 
 import android.content.ContentValues.TAG
-import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.util.Log
-import android.view.View
 import android.widget.NumberPicker
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +12,6 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import com.github.stephenvinouze.materialnumberpickercore.MaterialNumberPicker
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -40,6 +37,7 @@ class ProfileActivity : AppCompatActivity() {
         val nameTv = findViewById<AppCompatTextView>(R.id.nameTv)
         val ageTv = findViewById<AppCompatTextView>(R.id.ageTv)
         val bmiTv = findViewById<AppCompatTextView>(R.id.bmiTv)
+        val topAppBar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
         var weightHistory: MutableList<Float> = mutableListOf()
         var dateHistory: MutableList<String> = mutableListOf()
 
@@ -208,6 +206,11 @@ class ProfileActivity : AppCompatActivity() {
             targetWeightPicker()
         }
 
+        //Set the top app bar navigation icon to go back to the previous activity
+        topAppBar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
         saveButton.setOnClickListener {
 
             // get last date entry from weightHistoryTime
@@ -253,16 +256,6 @@ class ProfileActivity : AppCompatActivity() {
                     .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
             }
 
-
-            // OLD CODE LEFT JUST IN CASE NEW CODE BREAKS
-//            docRef
-//                .update(
-//                    "height", height,
-//                    "weight", weight,
-//                    "targetWeight", targetWeight
-//                )
-//                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
-//                .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
         }
     }
 }

@@ -1,6 +1,6 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="130dp"
+    android:layout_height="150dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:gravity="center"
@@ -55,7 +55,11 @@
                     android:layout_width="60dp"
                     android:gravity="center_vertical"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/beige_textbox"/>
+                    android:background="@drawable/beige_textbox"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
 
                 <TextView
                     android:id="@+id/repsTv"
@@ -72,7 +76,11 @@
                     android:layout_width="50dp"
                     android:gravity="center_vertical"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/beige_textbox"/>
+                    android:background="@drawable/beige_textbox"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
 
             </TableRow>
 
@@ -97,7 +105,12 @@
                     android:gravity="center_vertical"
                     android:layout_height="wrap_content"
                     android:background="@drawable/beige_textbox"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    />
 
             </TableRow>
 

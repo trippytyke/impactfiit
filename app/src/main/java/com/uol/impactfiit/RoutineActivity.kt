@@ -4,6 +4,9 @@ import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,11 +18,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
@@ -74,10 +80,7 @@ class RoutineActivity : AppCompatActivity(){
         val docRef = db.collection("users").document(uid!!).collection("routines")
         docRef.get()
             .addOnSuccessListener { result ->
-                Log.d(TAG, "DocumentSnapshot successfully retrieved!")
-                Log.d(TAG, "Size of result: ${result.size()}")
                 for (document in result) {
-                    Log.d(TAG, "Document ID: ${document.id}, Document Data: ${document.data}")
                     val routine = Routine(document.id)
                     routineList.add(routine)
                 }
@@ -96,9 +99,6 @@ class RoutineActivity : AppCompatActivity(){
                 layoutManager.orientation
             )
         )
-        Log.d(TAG, "RecyclerView set up with layoutManager and adapter")
-
-
 
         fab.setOnClickListener {
             val builder = AlertDialog.Builder(this, R.style.MyDialogTheme)
@@ -140,6 +140,108 @@ class RoutineActivity : AppCompatActivity(){
             val dialog = builder.create()
             dialog.show()
         }
+
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val deletedRoutine: Routine = routineList[viewHolder.adapterPosition]
+
+                val builder = AlertDialog.Builder(viewHolder.itemView.context)
+                builder.setTitle("Confirm deletion")
+                builder.setMessage("Are you sure you want to delete " + deletedRoutine.name + "?")
+
+                builder.setPositiveButton("Yes") { dialog, which ->
+                    routineList.removeAt(viewHolder.adapterPosition)
+                    adapter.notifyItemRemoved(viewHolder.adapterPosition)
+
+                    docRef.document(deletedRoutine.name).delete()
+
+                    Toast.makeText(
+                        viewHolder.itemView.context,
+                        deletedRoutine.name +" deleted",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                builder.setNegativeButton("No") { dialog, which ->
+                    adapter.notifyItemChanged(viewHolder.adapterPosition)
+                }
+
+                // Show the dialog
+                builder.show()
+            }
+
+            override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
+                // Increase the return value to slow down the swipe speed
+                return defaultValue * 10
+            }
+
+            override fun getSwipeVelocityThreshold(defaultValue: Float): Float {
+                // Decrease the return value to slow down the swipe speed
+                return defaultValue / 10
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+
+                val itemView = viewHolder.itemView
+                val paint = Paint()
+                paint.color = Color.rgb(170, 0, 0)
+
+                val trashIcon = ContextCompat.getDrawable(itemView.context, R.drawable.ic_delete)
+                val iconMargin = (itemView.height - trashIcon?.intrinsicHeight!!) / 2
+
+                if (dX > 0) { // Swiping to the right
+                    c.drawRect(
+                        itemView.left.toFloat(),
+                        itemView.top.toFloat(),
+                        itemView.left.toFloat() + dX,
+                        itemView.bottom.toFloat(),
+                        paint
+                    )
+
+                    trashIcon.setBounds(itemView.left + iconMargin, itemView.top + iconMargin,
+                        itemView.left + iconMargin + trashIcon.intrinsicWidth, itemView.bottom - iconMargin)
+                } else if (dX < 0) { // Swiping to the left
+                    c.drawRect(
+                        itemView.right.toFloat() + dX,
+                        itemView.top.toFloat(),
+                        itemView.right.toFloat(),
+                        itemView.bottom.toFloat(),
+                        paint
+                    )
+
+                    trashIcon.setBounds(itemView.right - iconMargin - trashIcon.intrinsicWidth, itemView.top + iconMargin,
+                        itemView.right - iconMargin, itemView.bottom - iconMargin)
+                }
+
+                trashIcon.draw(c)
+            }
+        }).attachToRecyclerView(recyclerView)
+
         //Set the top app bar navigation icon to go back to the previous activity
         topAppBar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()

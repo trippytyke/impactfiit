@@ -22,7 +22,6 @@ class AboutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
 
-        //
         var weight = ""
         var height = ""
 
@@ -84,8 +83,8 @@ class AboutActivity : AppCompatActivity() {
             alertDialog.show()
         }
 
-
-        fun weightPicker() { //Function to initialise the weight picker
+        //Function to initialise the weight picker
+        fun weightPicker() {
             val d = AlertDialog.Builder(this)
             val inflater = this.layoutInflater
             val dialogView = inflater.inflate(R.layout.number_picker_dialog, null)
