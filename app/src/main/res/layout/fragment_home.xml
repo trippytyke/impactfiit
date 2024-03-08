@@ -45,21 +45,7 @@
             android:textSize="22sp"
             android:textFontWeight="600"/>
 
-        <TableRow
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/filterBtn"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:background="@drawable/icon_filter"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:textColor="#FFFFFF" />
-        </TableRow>
 
         <androidx.cardview.widget.CardView
             android:layout_width="150dp"

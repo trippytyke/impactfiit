@@ -20,18 +20,41 @@ import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 
 class ViewRoutineFragment:Fragment(R.layout.fragment_viewroutine) {
+    //Declare the view model and the list of view routines
     private val viewModel: ListViewModel by activityViewModels()
     private val viewRoutineList = ArrayList<ViewRoutine>()
-    private val adapter = ViewRoutineAdapter(viewRoutineList)
+    private var routineName: String? = null
+    private lateinit var adapter: ViewRoutineAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.routineRecyclerView)
-        val currentUser = Firebase.auth.currentUser //Get current logged in user
-        val uid = currentUser?.uid //Get the user id
-        val db = Firebase.firestore //Get the firestore database
 
+        routineName = requireActivity().intent.getStringExtra("routineName")
+        adapter = ViewRoutineAdapter(viewRoutineList, routineName!!)
+
+        //Set the layout manager
+        val layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        //Get the recycler view
+        val recyclerView = view.findViewById<RecyclerView>(R.id.routineRecyclerView)
+
+        // ============= FIREBASE ===========
+        val currentUser = Firebase.auth.currentUser
+        val uid = currentUser?.uid
+        val db = Firebase.firestore
+        // ==================================
+
+        val docRef = db.collection("users").document(uid!!).collection("routines").document(routineName!!).collection("exercises")
+        docRef.get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val exercise = ViewRoutine(document.data["name"].toString(), document.id, document.data["set"].toString(), document.data["rep"].toString(), document.data["weight"].toString(), document.data["gifUrl"].toString())
+                    viewRoutineList.add(exercise)
+                }
+                adapter.notifyDataSetChanged()
+            }
+            .addOnFailureListener { exception ->
+                println("Error getting documents: $exception")
+            }
+        //Set the layout manager and the adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(
@@ -40,6 +63,7 @@ class ViewRoutineFragment:Fragment(R.layout.fragment_viewroutine) {
                 layoutManager.orientation
             )
         )
+
     }
 
     override fun onResume() {
@@ -47,7 +71,7 @@ class ViewRoutineFragment:Fragment(R.layout.fragment_viewroutine) {
         refreshData()
     }
 
-    private fun refreshData() {
+    private fun refreshData() { //Get the data from the view model and add it to the recycler view
         val exercise = viewModel.viewRoutineList
         for (i in 0 until exercise.size) {
             viewRoutineList.add(ViewRoutine(exercise[i].name, exercise[i].id, exercise[i].set, exercise[i].rep, exercise[i].weight, exercise[i].gifUrl))
@@ -67,8 +91,9 @@ class ViewRoutineFragment:Fragment(R.layout.fragment_viewroutine) {
 }
 
 data class ViewRoutine(val name: String, val id: String, val set: String, val rep: String, val weight: String, val gifUrl: String)
-class ViewRoutineAdapter(private var viewRoutineList: List<ViewRoutine>) : RecyclerView.Adapter<ViewRoutineAdapter.RoutineViewHolder>() {
+class ViewRoutineAdapter(private var viewRoutineList: MutableList<ViewRoutine>, private val routineName: String) : RecyclerView.Adapter<ViewRoutineAdapter.RoutineViewHolder>() {
     class RoutineViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        //Get the views
         val textView: TextView = itemView.findViewById(R.id.textView)
         val reps: TextView = itemView.findViewById(R.id.repsEt)
         val sets: TextView = itemView.findViewById(R.id.setsEt)
@@ -91,14 +116,17 @@ class ViewRoutineAdapter(private var viewRoutineList: List<ViewRoutine>) : Recyc
         holder.weight.text = routine.weight
         Glide.with(holder.imageView).load(routine.gifUrl).into(holder.imageView)
 
+
         holder.editBtn.setOnClickListener() {
             val builder = AlertDialog.Builder(holder.itemView.context, R.style.MyDialogTheme)
             builder.setTitle("Edit exercise")
             val inflater = LayoutInflater.from(holder.itemView.context)
             val view = inflater.inflate(R.layout.routine_dialog, null)
+
             val repsEt = view.findViewById<EditText>(R.id.repsEt)
             val setsEt = view.findViewById<EditText>(R.id.setsEt)
             val weightEt = view.findViewById<EditText>(R.id.weightEt)
+
             repsEt.setText(routine.rep)
             setsEt.setText(routine.set)
             weightEt.setText(routine.weight)
@@ -109,19 +137,38 @@ class ViewRoutineAdapter(private var viewRoutineList: List<ViewRoutine>) : Recyc
                 val sets = setsEt.text.toString()
                 val weight = weightEt.text.toString()
 
-                val updatedRoutine = ViewRoutine(routine.name, routine.id, sets, reps, weight, routine.gifUrl)
-                routine = updatedRoutine
-                notifyItemChanged(position)
+                // ============= FIREBASE ===========
+                val currentUser = Firebase.auth.currentUser
+                val uid = currentUser?.uid
+                val db = Firebase.firestore
+                // ==================================
+                val exerciseMap = hashMapOf(
+                    "name" to routine.name,
+                    "id" to routine.id,
+                    "set" to sets,
+                    "rep" to reps,
+                    "weight" to weight,
+                    "gifUrl" to routine.gifUrl
+                )
+                val routineNameSafe = routine.name.replace("/", "-")
+                db.collection("users").document(uid!!)
+                    .collection("routines")
+                    .document(routineName!!)
+                    .collection("exercises")
+                    .document(routineNameSafe)
+                    .set(exerciseMap)
+                    .addOnSuccessListener {
+                        val updatedRoutine = ViewRoutine(routine.name, routine.id, sets, reps, weight, routine.gifUrl)
+                        viewRoutineList[position] = updatedRoutine
+                        notifyItemChanged(position)
+                    }
+                    .addOnFailureListener { e -> println("Error writing document: $e") }
 
             }
             builder.setNegativeButton("Cancel") { dialog, which -> }
             builder.show()
         }
-
-
-
     }
-
     override fun getItemCount() = viewRoutineList.size
     }
 }

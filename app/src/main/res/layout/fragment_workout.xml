@@ -10,13 +10,25 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/alfaslabone"
+            android:text="Workout"
+            android:textColor="@color/navy"
+            android:textSize="34sp"/>
+
         <androidx.cardview.widget.CardView
             android:layout_width="300dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
             app:cardCornerRadius="20dp"
-            app:cardElevation="30dp">
+            app:cardElevation="15dp">
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/exploreBtn"
@@ -57,7 +69,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             app:cardCornerRadius="20dp"
-            app:cardElevation="30dp">
+            app:cardElevation="15dp"
+            android:layout_marginBottom="30dp">
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/routineBtn"

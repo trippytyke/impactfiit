@@ -22,8 +22,11 @@ class AboutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
 
+        //
         var weight = ""
         var height = ""
+
+        //Initialise the views
         val continueButton = findViewById<AppCompatButton>(R.id.continueBtn)
         val fNameTxt = findViewById<AppCompatEditText>(R.id.firstNameEt)
         val lNameTxt = findViewById<AppCompatEditText>(R.id.lastNameEt)
