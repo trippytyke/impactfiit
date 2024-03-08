@@ -30,7 +30,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
-            app:cardCornerRadius="20dp">
+            app:cardCornerRadius="20dp"
+            app:cardElevation="15dp">
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btnExplore"
@@ -71,7 +72,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
-            app:cardCornerRadius="20dp">
+            app:cardCornerRadius="20dp"
+            app:cardElevation="15dp">
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btnLog"

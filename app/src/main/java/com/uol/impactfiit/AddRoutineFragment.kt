@@ -1,5 +1,7 @@
 package com.uol.impactfiit
 
+import android.app.Activity
+import android.app.PendingIntent.getActivity
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -33,17 +35,22 @@ import java.util.Locale
 
 class AddRoutineFragment: Fragment(R.layout.fragment_addroutine), AddRoutineAdapter.OnAddButtonClickListener {
     private val viewModel: ListViewModel by activityViewModels()
+    private val addRoutineList = ArrayList<AddRoutine>()
+    private var routineName: String? = null
+    private lateinit var adapter: AddRoutineAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        routineName = requireActivity().intent.getStringExtra("routineName")
+        adapter = AddRoutineAdapter(addRoutineList, this, routineName!!)
         val layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        //Get the views
         val recyclerView = view.findViewById<RecyclerView>(R.id.routineRecyclerView)
-        val currentUser = Firebase.auth.currentUser //Get current logged in user
-        val uid = currentUser?.uid //Get the user id
-        val db = Firebase.firestore //Get the firestore database
         val searchView = view.findViewById<androidx.appcompat.widget.SearchView>(R.id.searchView)
+
+        //Set the layout manager and adapter for the recycler view
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        val addRoutineList = ArrayList<AddRoutine>()
-        val adapter = AddRoutineAdapter(addRoutineList, this)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(
             DividerItemDecoration(
@@ -52,6 +59,9 @@ class AddRoutineFragment: Fragment(R.layout.fragment_addroutine), AddRoutineAdap
             )
         )
 
+        //Calls the getExercises function to get the exercises from the API
+        getExercises()
+
         searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -59,12 +69,8 @@ class AddRoutineFragment: Fragment(R.layout.fragment_addroutine), AddRoutineAdap
 
             override fun onQueryTextChange(text: String?): Boolean {
                 val filteredList = ArrayList<AddRoutine>()
-                // running a for loop to compare elements.
                 for (item in addRoutineList) {
-                    // checking if the entered string matched with any item of our recycler view.
                     if (item.name.lowercase().contains(text!!.lowercase(Locale.getDefault()))) {
-                        // if the item is matched we are
-                        // adding it to our filtered list.
                         filteredList.add(item)
                     }
                 }
@@ -78,8 +84,23 @@ class AddRoutineFragment: Fragment(R.layout.fragment_addroutine), AddRoutineAdap
                 return false
             }
         })
+    }
+    companion object {
+        private const val ARG_COUNT = "param1"
+        fun newInstance(counter: Int?): AddRoutineFragment {
+            val fragment = AddRoutineFragment()
+            val args = Bundle()
+            args.putInt(ARG_COUNT, counter!!)
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
+    override fun onAddButtonClick(routine: List<ViewRoutineFragment.ViewRoutine>) {
+        viewModel.viewRoutineList.addAll(routine)
+    }
 
+    private fun getExercises(){
         val cache = DiskBasedCache(requireActivity().cacheDir, 1024 * 1024) // 1MB cap
         val network = BasicNetwork(HurlStack())
         val requestQueue = RequestQueue(cache, network).apply { start() }
@@ -111,20 +132,6 @@ class AddRoutineFragment: Fragment(R.layout.fragment_addroutine), AddRoutineAdap
         }
         requestQueue.add(stringRequest)
     }
-    companion object {
-        private const val ARG_COUNT = "param1"
-        fun newInstance(counter: Int?): AddRoutineFragment {
-            val fragment = AddRoutineFragment()
-            val args = Bundle()
-            args.putInt(ARG_COUNT, counter!!)
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
-    override fun onAddButtonClick(routine: List<ViewRoutineFragment.ViewRoutine>) {
-        viewModel.viewRoutineList.addAll(routine)
-    }
 }
 
 data class AddRoutine(
@@ -134,7 +141,7 @@ data class AddRoutine(
     val targetMuscle: String
 )
 
-class AddRoutineAdapter(private var addRoutineList: List<AddRoutine>, private val listener: OnAddButtonClickListener) :
+class AddRoutineAdapter(private var addRoutineList: List<AddRoutine>, private val listener: OnAddButtonClickListener, private val routineName: String) :
     RecyclerView.Adapter<AddRoutineAdapter.RoutineViewHolder>() {
 
     interface OnAddButtonClickListener {
@@ -178,17 +185,34 @@ class AddRoutineAdapter(private var addRoutineList: List<AddRoutine>, private va
                 val sets = customLayout.findViewById<EditText>(R.id.setsEt)
                 val reps = customLayout.findViewById<EditText>(R.id.repsEt)
                 val weights = customLayout.findViewById<EditText>(R.id.weightEt)
+                //Get the values from the edit text
                 val rep = reps.text.toString()
                 val weight = weights.text.toString()
                 val set = sets.text.toString()
+
+                // ============= FIREBASE ===========
                 val db = Firebase.firestore
                 val currentUser = Firebase.auth.currentUser
                 val uid = currentUser?.uid
+                // ==================================
+
                 val exercise = listOf(ViewRoutineFragment.ViewRoutine(routine.name, routine.id, set, rep, weight, routine.gifUrl))
+                val exerciseMap = hashMapOf(
+                    "name" to routine.name,
+                    "id" to routine.id,
+                    "set" to set,
+                    "rep" to rep,
+                    "weight" to weight,
+                    "gifUrl" to routine.gifUrl
+                )
+                val routineNameSafe = routine.name.replace("/", "-")
                 listener.onAddButtonClick(exercise)
-                 /*   if (uid != null) {
-                        db.collection("users").document(uid).collection("routines").document(routine.id)
-                            .set(exercise)
+                    if (uid != null) {
+                        db.collection("users")
+                            .document(uid).collection("routines")
+                            .document(routineName).collection("exercises")
+                            .document(routineNameSafe)
+                            .set(exerciseMap)
                             .addOnSuccessListener {
                                 Toast.makeText(
                                     holder.itemView.context,
@@ -203,7 +227,7 @@ class AddRoutineAdapter(private var addRoutineList: List<AddRoutine>, private va
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
-                    }*/
+                    }
             })
             builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
                 dialog.cancel()

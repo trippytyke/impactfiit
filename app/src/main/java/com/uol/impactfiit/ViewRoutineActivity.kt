@@ -13,7 +13,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class ListViewModel : ViewModel() {
+class ListViewModel : ViewModel() { //ViewModel to pass data from the AddRoutineFragment to the ViewRoutineFragment
     val viewRoutineList = ArrayList<ViewRoutineFragment.ViewRoutine>()
     fun clearData() {
         viewRoutineList.clear()
@@ -25,11 +25,15 @@ class ViewRoutineActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_viewroutine)
 
+        //Get the viewpager and tablayout views
         val viewPager = findViewById<ViewPager2>(R.id.pager)
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+        val topAppBar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
 
-
+        //Set the adapter for the viewpager
         viewPager.adapter = PagerAdapter(this)
+
+        //Attach the tablayout to the viewpager
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             if (position == 0) {
                 tab.text = "Routine"
@@ -37,11 +41,17 @@ class ViewRoutineActivity : AppCompatActivity() {
                 tab.text = "Add Exercise"
             }
         }.attach()
+
+        //Set the top app bar navigation icon to go back to the previous activity
+        topAppBar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
     }
 }
 
 
-class PagerAdapter(fragmentActivity: FragmentActivity) :
+class PagerAdapter(fragmentActivity: FragmentActivity) : //Adapter for the viewpager
     FragmentStateAdapter(fragmentActivity) {
 
     override fun createFragment(position: Int): Fragment {
