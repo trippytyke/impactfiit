@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,6 +24,7 @@ class LogActivity : AppCompatActivity() {
     private val eatenFoods = mutableListOf<Recipe>()
     private val dailyCaloriesList = mutableListOf<DailyCalories>()
     private lateinit var eatenFoodRecyclerView: RecyclerView
+    private lateinit var totalCaloriesText: TextView
 
     val currentUser = Firebase.auth.currentUser
     val uid = currentUser?.uid
@@ -41,6 +43,7 @@ class LogActivity : AppCompatActivity() {
         val addButton: Button = findViewById((R.id.addBtn))
         val addImage: ImageView = findViewById(R.id.selectedImage)
         val topAppBar = findViewById<MaterialToolbar>(R.id.topAppBar)
+        totalCaloriesText = findViewById(R.id.totalCaloriesText)
 
         topAppBar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
@@ -100,6 +103,7 @@ class LogActivity : AppCompatActivity() {
                     dailyCaloriesList.clear()
                     dailyCaloriesList.add(DailyCalories(today, totalCalories))
                     eatenFoodRecyclerView.adapter?.notifyDataSetChanged()
+                    totalCaloriesText.text = "Total Calories: $totalCalories"
                     Log.d("LogActivity", "Total Calories $totalCalories")
                 }
                 .addOnFailureListener { e ->
@@ -133,6 +137,7 @@ class LogActivity : AppCompatActivity() {
             dailyCaloriesList.add(DailyCalories(today, newTotalCalories))
         }
         updateTotalCalories()
+        totalCaloriesText.text = "Total Calories: $newTotalCalories"
 
         uid?.let { userId ->
             db.collection("calorieLog").document(userId)

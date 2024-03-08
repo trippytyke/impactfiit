@@ -78,6 +78,7 @@
             android:background="@drawable/grey_textbox"
             android:fontFamily="@font/futura"
             android:hint="250" />
+
     </TableRow>
 
 
@@ -100,7 +101,22 @@
         android:fontFamily="@font/lexend"
         android:text="Add"
         android:textColor="#FFFFFF" />
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end">
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/totalCaloriesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:text="Total Calories: 0"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:fontFamily="@font/futura"
+            android:layout_marginEnd="10dp" />
+    </TableRow>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewEatenFoods"
