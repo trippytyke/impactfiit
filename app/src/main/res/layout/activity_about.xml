@@ -14,20 +14,26 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/icon"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="188dp"
+            android:paddingTop="20dp"
+            android:paddingLeft="50dp"
             android:fontFamily="@font/gorditas"
             android:text="@string/icon"
-            android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="80sp" />
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp">
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/appCompatTextView2"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
@@ -38,7 +44,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/appCompatTextView3"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
@@ -49,7 +55,7 @@
             android:textSize="20sp"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
@@ -61,17 +67,19 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/firstNameEt"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
             android:background="@drawable/grey_textbox"
             android:fontFamily="@font/futura"
             android:hint="John"
             android:inputType="textNoSuggestions"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
@@ -83,16 +91,18 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/lastNameEt"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:background="@drawable/grey_textbox"
             android:fontFamily="@font/futura"
             android:hint="Doe"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/date_of_birth"
@@ -104,10 +114,12 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/dateOfBirthEt"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:background="@drawable/grey_textbox"
             android:fontFamily="@font/futura"
             android:clickable="false"
@@ -117,7 +129,7 @@
             android:hint="DD / MM / YYYY"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
@@ -129,10 +141,12 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/heightEt"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:background="@drawable/grey_textbox"
             android:fontFamily="@font/futura"
             android:hint="@string/height_hint"
@@ -142,7 +156,7 @@
             android:focusableInTouchMode="false"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
@@ -154,10 +168,12 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/weightEt"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:background="@drawable/grey_textbox"
             android:fontFamily="@font/futura"
             android:hint="@string/weight_hint"
@@ -168,16 +184,20 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/continueBtn"
-            android:layout_width="290dp"
-            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="40dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
             android:background="@drawable/orange_button"
             android:fontFamily="@font/lexend"
             android:text="Continue"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"/>
+
+        </LinearLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

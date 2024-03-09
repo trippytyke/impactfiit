@@ -34,6 +34,20 @@ class ExerciseActivity : AppCompatActivity(){
         val exerciseTMuscleTxt = findViewById<androidx.appcompat.widget.AppCompatTextView>(R.id.targetMuscleTv)
         val webView = findViewById<WebView>(R.id.exerciseGif)
 
+        //Get the screen width
+        val displayMetrics = resources.displayMetrics
+        val screenWidth = displayMetrics.widthPixels
+        val squareSize = (screenWidth * 0.8).toInt() // 80% of the screen width
+
+        val layoutParams = webView.layoutParams
+        layoutParams.width = squareSize
+        layoutParams.height = squareSize
+        webView.layoutParams = layoutParams
+
+        exerciseInstructions?.replace("[", "")
+        exerciseInstructions?.replace("]", "")
+        exerciseInstructions?.replace(",", "\n")
+
         //Set the text views with data from the intent
         exerciseNameTxt.text = exerciseName
         exerciseInsTxt.text = exerciseInstructions

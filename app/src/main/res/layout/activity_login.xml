@@ -9,23 +9,34 @@
     android:background="@color/bgPrimary"
     tools:context=".LoginActivity">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="150dp"
-        android:layout_marginBottom="150dp"
-        android:fontFamily="@font/gorditas"
-        android:text="@string/icon"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="100sp" />
+        android:orientation="vertical"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:paddingTop="125dp"
+            android:paddingBottom="125dp"
+            android:fontFamily="@font/gorditas"
+            android:text="@string/icon"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="100sp" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/emailEt"
-        android:layout_width="290dp"
-        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="25dp"
         android:background="@drawable/grey_textbox"
         android:fontFamily="@font/futura"
@@ -33,9 +44,11 @@
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/passwordEt"
-        android:layout_width="290dp"
-        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:layout_marginBottom="25dp"
         android:inputType="textPassword"
         android:background="@drawable/grey_textbox"
@@ -44,10 +57,12 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginBtn"
-        android:layout_width="290dp"
-        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="21dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/orange_button"
         android:fontFamily="@font/lexend"
         android:text="@string/login_text"
@@ -56,16 +71,18 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/backBtn"
-        android:layout_width="88dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="47dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/blue_button"
         android:fontFamily="@font/lexend"
         android:text="Back"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"/>
+
+    </LinearLayout>
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

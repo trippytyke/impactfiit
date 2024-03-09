@@ -8,12 +8,15 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="100dp">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
             android:fontFamily="@font/alfaslabone"
             android:text="@string/settings"
             android:textColor="#2D2E4A"
@@ -21,63 +24,59 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/profileBtn"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginStart="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/navy_button"
             android:text="@string/profile"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:textAllCaps="false"
             android:gravity="start|center_vertical"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:textColor="@color/bgSecondary"
             android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="250dp"
-            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:layout_marginStart="30dp"
             android:background="@drawable/navy_button"
             android:text="@string/account"
             android:textAllCaps="false"
             android:gravity="start|center_vertical"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:textColor="@color/bgSecondary"
             android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="250dp"
-            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:layout_marginStart="30dp"
             android:background="@drawable/navy_button"
             android:text="@string/contact"
             android:textAllCaps="false"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:gravity="start|center_vertical"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
             android:textColor="@color/bgSecondary"
             android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/logoutBtn"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:layout_marginStart="30dp"
             android:background="@drawable/orange_button"
             android:text="@string/logout"
             android:textAllCaps="false"
             android:gravity="start|center_vertical"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:textColor="@color/bgSecondary"
             android:textSize="20sp" />
 

@@ -1,66 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.appcompat.widget.LinearLayoutCompat
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgPrimary"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/appCompatTextView4"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="125dp"
-        android:layout_marginEnd="184dp"
+        android:layout_gravity="center"
+        android:paddingTop="125dp"
+        android:paddingBottom="125dp"
         android:fontFamily="@font/gorditas"
-        android:text="I"
+        android:text="@string/icon"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="120dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="100sp" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/appCompatTextView"
-        android:layout_width="350dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="270dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:fontFamily="@font/futura"
         android:text="@string/fitness_journey"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView4" />
+        android:textSize="20sp" />
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginBtn"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:background="@drawable/orange_button"
         android:fontFamily="@font/lexend"
         android:text="@string/login_text"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
+        android:layout_margin="10dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/registerBtn"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:background="@drawable/register_button"
         android:fontFamily="@font/lexend"
         android:text="@string/register_text"
         android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
+        android:layout_margin="10dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </TableRow>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

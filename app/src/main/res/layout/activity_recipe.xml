@@ -28,18 +28,29 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextQuery"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:layout_margin="10dp"
         android:background="@drawable/beige_textbox"
         android:hint="Enter query (e.g pasta)" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonSearch"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
         android:text="Search"
         android:background="@drawable/orange_button"
         android:layout_gravity="center"
@@ -50,14 +61,16 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewRecipes"
         android:layout_gravity="center"
-        android:layout_width="380dp"
-        android:layout_height="500dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="30dp"
         android:scrollbars="vertical"
         android:scrollbarThumbVertical="@color/colorName"
         android:scrollbarSize="5dp"
         android:background="@color/bgSecondary"/>
+
+    </LinearLayout>
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

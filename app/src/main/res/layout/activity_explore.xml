@@ -26,27 +26,18 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TableRow
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/filterBtn"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:background="@drawable/icon_filter"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:textColor="#FFFFFF" />
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    </TableRow>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -54,8 +45,9 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical"
         android:scrollbarThumbVertical="@color/colorName"
-        android:scrollbarSize="5dp"
-        />
+        android:scrollbarSize="5dp"/>
+
+    </LinearLayout>
 
 
 
