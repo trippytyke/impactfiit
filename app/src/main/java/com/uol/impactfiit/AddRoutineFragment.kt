@@ -205,7 +205,7 @@ class AddRoutineAdapter(private var addRoutineList: List<AddRoutine>, private va
                     "weight" to weight,
                     "gifUrl" to routine.gifUrl
                 )
-                val routineNameSafe = routine.name.replace("/", "-")
+                    val routineNameSafe = routine.name.replace("/", "-")
                 listener.onAddButtonClick(exercise)
                     if (uid != null) {
                         db.collection("users")

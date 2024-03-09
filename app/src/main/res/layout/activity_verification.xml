@@ -7,11 +7,11 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="150dp"
-        android:layout_marginBottom="150dp"
+        android:paddingTop="125dp"
+        android:paddingBottom="125dp"
         android:fontFamily="@font/gorditas"
         android:text="@string/icon"
         android:textAlignment="center"

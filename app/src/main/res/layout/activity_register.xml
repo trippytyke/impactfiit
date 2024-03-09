@@ -9,20 +9,29 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="150dp"
-        android:layout_marginBottom="150dp"
+        android:paddingTop="125dp"
+        android:paddingBottom="125dp"
         android:fontFamily="@font/gorditas"
         android:text="@string/icon"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="100sp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="50dp"
+        android:paddingBottom="50dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp">
+
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="284dp"
-        android:layout_height="49dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
         android:fontFamily="@font/futura"
@@ -32,9 +41,11 @@
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/emailEt"
-        android:layout_width="290dp"
-        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:layout_marginBottom="25dp"
         android:background="@drawable/grey_textbox"
         android:fontFamily="@font/futura"
@@ -42,10 +53,12 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/registerBtn"
-        android:layout_width="290dp"
-        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="21dp"
+        android:layout_marginBottom="20dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:background="@drawable/orange_button"
         android:fontFamily="@font/lexend"
         android:text="@string/register_text"
@@ -54,16 +67,17 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/backBtn"
-        android:layout_width="88dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="47dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:background="@drawable/blue_button"
         android:fontFamily="@font/lexend"
         android:text="Back"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"/>
+
+    </LinearLayout>
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

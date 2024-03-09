@@ -31,6 +31,14 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp">
+
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/exerciseTv"
             android:layout_width="wrap_content"
@@ -41,85 +49,84 @@
             android:fontFamily="@font/alfaslabone"
             android:text="Exercise name"
             android:textColor="#2D2E4A"
-            android:textSize="34sp"/>
+            android:textSize="30sp"/>
 
-        <WebView
+            <WebView
             android:id="@+id/exerciseGif"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="25dp"/>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center">
-
+            android:layout_marginTop="10dp">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:fontFamily="@font/futura"
+                android:textAlignment="center"
                 android:text="Target muscle"
                 android:textColor="#2D2E4A"
                 android:textSize="20sp"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"/>
+                />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:textAlignment="center"
                 android:fontFamily="@font/futura"
                 android:text="Body part"
                 android:textColor="#2D2E4A"
-                android:textSize="20sp"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"/>
+                android:textSize="20sp" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center">
+            android:layout_marginTop="10dp">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/targetMuscleTv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:textAlignment="center"
                 android:fontFamily="@font/futura"
                 android:text="Target muscle"
                 android:textColor="#2D2E4A"
-                android:textSize="20sp"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"/>
+                android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/bodyPartTv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:textAlignment="center"
                 android:fontFamily="@font/futura"
                 android:text="Body part"
                 android:textColor="#2D2E4A"
-                android:textSize="20sp"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"/>
+                android:textSize="20sp" />
 
         </TableRow>
 
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/futura"
+            android:textAlignment="center"
             android:text="Equipment"
             android:textColor="#2D2E4A"
             android:textSize="20sp" />
@@ -127,19 +134,21 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/equipmentTv"
             android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textAlignment="center"
             android:fontFamily="@font/futura"
             android:text="Equipment"
             android:textColor="#2D2E4A"
             android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
+            android:textAlignment="center"
             android:fontFamily="@font/futura"
             android:text="Instructions"
             android:textColor="#2D2E4A"
@@ -148,13 +157,16 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/instructionsTv"
             android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textAlignment="center"
             android:fontFamily="@font/futura"
             android:text="Instructions"
             android:textColor="#2D2E4A"
             android:textSize="20sp" />
+
+        </LinearLayout>
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

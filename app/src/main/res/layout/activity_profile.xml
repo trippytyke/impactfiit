@@ -8,7 +8,7 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -30,9 +30,16 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp">
+
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
@@ -43,7 +50,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/nameTv"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="25dp"
@@ -55,7 +62,7 @@
 
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/date_of_birth"
@@ -65,7 +72,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/ageTv"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="25dp"
@@ -76,7 +83,7 @@
             android:textFontWeight="650"/>
 
         <TableRow
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/futura"
@@ -85,8 +92,9 @@
             android:textSize="20sp">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:text="@string/weight"
                 android:fontFamily="@font/futura"
@@ -95,8 +103,9 @@
                 android:layout_marginBottom="5dp"/>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:text="@string/height"
                 android:fontFamily="@font/futura"
@@ -107,7 +116,7 @@
         </TableRow>
 
         <TableRow
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="25dp"
@@ -118,9 +127,10 @@
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/weightEt"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:fontFamily="@font/futura"
                 android:text="60"
                 android:textColor="@color/navy"
@@ -129,8 +139,9 @@
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/heightEt"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:fontFamily="@font/futura"
                 android:text="150"
@@ -143,7 +154,7 @@
 
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/your_bmi"
@@ -153,7 +164,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/bmiTv"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="25dp"
@@ -164,7 +175,7 @@
             android:textFontWeight="650"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/target_weight"
@@ -174,7 +185,7 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/targetWeightEt"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="25dp"
@@ -184,13 +195,19 @@
             android:textSize="35sp"
             android:textFontWeight="650"/>
 
+        </LinearLayout>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/saveBtn"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="25dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="40dp"
             android:text="@string/save"
             android:textColor="@color/white"
             android:textAllCaps="false"

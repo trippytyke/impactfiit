@@ -14,9 +14,11 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_weight="1"
             android:text="element"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/futura"
@@ -25,8 +27,9 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnView"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:text="View"
+            android:layout_weight="3"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/blue_button"

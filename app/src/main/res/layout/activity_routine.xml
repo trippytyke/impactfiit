@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgSecondary"
+    android:background="@color/bgPrimary"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -26,46 +26,37 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:text="Workout Routine"
-        android:fontFamily="@font/futura"
-        android:textFontWeight="650"
-        android:textColor="@color/navy"
-        android:textSize="30sp"
-        android:clickable="false" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp">
 
-    <RelativeLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:backgroundTint="@color/colorName"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="40dp"
-            android:contentDescription="Submit"
-            android:src="@drawable/ic_add" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/routineRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bgSecondary" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/routineRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/bgSecondary" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/colorName"
+                android:contentDescription="Submit"
+                android:src="@drawable/ic_add" />
 
-    </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-
-
-
+    </LinearLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
