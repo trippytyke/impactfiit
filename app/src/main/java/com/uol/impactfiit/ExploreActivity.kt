@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.*
@@ -26,6 +27,7 @@ class ExerciseAdapter(private var exerciseList: List<Exercise>) : RecyclerView.A
         val textView: TextView = itemView.findViewById(R.id.textView)
         val textViewTwo: TextView = itemView.findViewById(R.id.textView2)
         val imageView: ImageView = itemView.findViewById(R.id.exerciseGif)
+        val viewBtn: androidx.appcompat.widget.AppCompatButton = itemView.findViewById(R.id.btnView)
     }
 
     fun filter(filterList: List<Exercise>) {
@@ -41,13 +43,23 @@ class ExerciseAdapter(private var exerciseList: List<Exercise>) : RecyclerView.A
         val exercise = exerciseList[position]
         holder.textView.text = exercise.name
         holder.textViewTwo.text = exercise.targetMuscle
-        Glide.with(holder.imageView).load(exercise.gifUrl).into(holder.imageView);
+        Glide.with(holder.imageView).load(exercise.gifUrl).into(holder.imageView)
+
+        holder.viewBtn.setOnClickListener {
+            val intent = Intent(holder.viewBtn.context, ExerciseActivity::class.java)
+            intent.putExtra("exerciseName", exercise.name)
+            intent.putExtra("exerciseId", exercise.id)
+            intent.putExtra("exerciseGifUrl", exercise.gifUrl)
+            intent.putExtra("exerciseTargetMuscle", exercise.targetMuscle)
+            intent.putExtra("exerciseBodyPart", exercise.bodyPart)
+            intent.putExtra("exerciseEquipment", exercise.equipment)
+            intent.putExtra("exerciseInstructions", exercise.instructions)
+            holder.viewBtn.context.startActivity(intent)
+        }
 
 
         //Set the OnClickListener
         holder.itemView.setOnClickListener {
-
-            Toast.makeText(holder.itemView.context, "Clicked on ${exercise.name}", Toast.LENGTH_SHORT).show()
             val intent = Intent(holder.itemView.context, ExerciseActivity::class.java)
             intent.putExtra("exerciseName", exercise.name)
             intent.putExtra("exerciseId", exercise.id)
@@ -78,6 +90,14 @@ class ExploreActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         //Set the adapter
         recyclerView.adapter = adapter
+
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                layoutManager.orientation
+            )
+        )
 
         //Calls the getExercises function to get the exercises from the API
         getExercises()

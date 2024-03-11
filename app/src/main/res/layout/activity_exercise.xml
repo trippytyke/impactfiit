@@ -36,7 +36,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingLeft="40dp"
-            android:paddingRight="40dp">
+            android:paddingRight="40dp"
+            android:paddingBottom="60dp">
 
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -72,8 +73,8 @@
                 android:textAlignment="center"
                 android:text="Target muscle"
                 android:textColor="#2D2E4A"
-                android:textSize="20sp"
-                />
+                android:textSize="22sp"
+                android:textStyle="bold"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -84,7 +85,8 @@
                 android:fontFamily="@font/futura"
                 android:text="Body part"
                 android:textColor="#2D2E4A"
-                android:textSize="20sp" />
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
         </TableRow>
 
@@ -129,7 +131,8 @@
             android:textAlignment="center"
             android:text="Equipment"
             android:textColor="#2D2E4A"
-            android:textSize="20sp" />
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/equipmentTv"
@@ -152,7 +155,8 @@
             android:fontFamily="@font/futura"
             android:text="Instructions"
             android:textColor="#2D2E4A"
-            android:textSize="20sp" />
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/instructionsTv"
@@ -164,7 +168,7 @@
             android:fontFamily="@font/futura"
             android:text="Instructions"
             android:textColor="#2D2E4A"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
 
         </LinearLayout>
 

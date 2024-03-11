@@ -1,7 +1,9 @@
 package com.uol.impactfiit
 
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +22,7 @@ class ExerciseActivity : AppCompatActivity(){
 
         //Get the intent data
         val gifUrl = intent.getStringExtra("exerciseGifUrl")
-        val exerciseInstructions = intent.getStringExtra("exerciseInstructions")
+        var exerciseInstructions = intent.getStringExtra("exerciseInstructions")
         val exerciseEquipment = intent.getStringExtra("exerciseEquipment")
         val exerciseBodyPart = intent.getStringExtra("exerciseBodyPart")
         val exerciseTargetMuscle = intent.getStringExtra("exerciseTargetMuscle")
@@ -44,9 +46,15 @@ class ExerciseActivity : AppCompatActivity(){
         layoutParams.height = squareSize
         webView.layoutParams = layoutParams
 
-        exerciseInstructions?.replace("[", "")
-        exerciseInstructions?.replace("]", "")
-        exerciseInstructions?.replace(",", "\n")
+        Log.d(TAG, exerciseInstructions.toString())
+
+        exerciseInstructions = exerciseInstructions!!.replace("[", "").replace("]", "")
+        val splitInstructions = exerciseInstructions.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)".toRegex())
+        val numberedInstructions = splitInstructions.withIndex().joinToString("\n\n") { (index, line) ->
+            "${index + 1}. $line"
+        }
+        exerciseInstructions = numberedInstructions
+        exerciseInstructions = exerciseInstructions.replace("\"", "")
 
         //Set the text views with data from the intent
         exerciseNameTxt.text = exerciseName

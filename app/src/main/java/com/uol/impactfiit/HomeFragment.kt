@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import com.google.firebase.Firebase
@@ -21,6 +22,18 @@ class HomeFragment:Fragment(R.layout.fragment_home) {
 
         val docRef = db.collection("users").document(uid!!)
         val nameTxt = view.findViewById<AppCompatTextView>(R.id.userName)
+        val dateTxt = view.findViewById<AppCompatTextView>(R.id.dateTv)
+        val profileBtn = view.findViewById<AppCompatImageButton>(R.id.profileBtn)
+
+        val date = System.currentTimeMillis()
+        val sdf = java.text.SimpleDateFormat("EEEE\nMMMM dd, yyyy", java.util.Locale.getDefault())
+        val dateString = sdf.format(date)
+        dateTxt.text = dateString
+
+        profileBtn.setOnClickListener {
+            val intent = Intent(context, ProfileActivity::class.java)
+            startActivity(intent)
+        }
 
         docRef.get()
             .addOnSuccessListener { document ->
