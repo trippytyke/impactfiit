@@ -135,7 +135,11 @@
                 android:text="60"
                 android:textColor="@color/navy"
                 android:textSize="35sp"
-                android:textFontWeight="650"/>
+                android:textFontWeight="650"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/heightEt"
@@ -147,7 +151,11 @@
                 android:text="150"
                 android:textColor="@color/navy"
                 android:textSize="35sp"
-                android:textFontWeight="650"/>
+                android:textFontWeight="650"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
 
         </TableRow>
 
@@ -193,7 +201,11 @@
             android:text="55"
             android:textColor="@color/navy"
             android:textSize="35sp"
-            android:textFontWeight="650"/>
+            android:textFontWeight="650"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
         </LinearLayout>
 

@@ -10,13 +10,14 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:layout_marginStart="30dp"
             android:fontFamily="@font/alfaslabone"
             android:text="@string/hello"
             android:textColor="#2D2E4A"
@@ -27,7 +28,6 @@
             android:text="John Doe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:fontFamily="@font/alfaslabone"
             android:textColor="@color/colorName"
             android:textSize="34sp"/>
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
-            android:layout_marginStart="30dp"
+
             android:layout_marginBottom="35dp"
             android:fontFamily="@font/futura"
             android:text="Thursday\n25th March 2021"
@@ -50,7 +50,6 @@
         <androidx.cardview.widget.CardView
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_gravity="center"
             android:layout_marginTop="20dp"
             app:cardCornerRadius="20dp">
 
