@@ -48,5 +48,5 @@ ImpactFIIT is an Android application designed to help fitness beginners take cha
   Use an Android emulator or a physical device.
 
 ## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
